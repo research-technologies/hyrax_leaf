@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Core Hyrax repository maintained by the DART team. 
 
-Things you may want to cover:
+It is currently a vanilla Hyrax repository, created with:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+rails _5.1.4_ new hyrax-core -m https://raw.githubusercontent.com/samvera/hyrax/v2.1.0.beta1/template.rb
+```
