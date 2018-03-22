@@ -62,6 +62,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'sidekiq'
+gem 'hydra-role-management'
 group :development, :test do
   gem 'fcrepo_wrapper'
   gem 'rspec-rails'
