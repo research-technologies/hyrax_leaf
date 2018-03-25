@@ -67,5 +67,7 @@ group :development, :test do
 end
 
 gem 'riiif', '~> 1.1'
+
+gem 'pg', '~> 0.21.0'
 gem 'sidekiq'
 gem 'hydra-role-management'

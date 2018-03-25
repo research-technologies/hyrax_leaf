@@ -20,6 +20,8 @@ end
 
 Riiif::Image.authorization_service = Hyrax::IIIFAuthorizationService
 
+Riiif::Image.file_resolver.basic_auth_credentials = [ActiveFedora.fedora.user, ActiveFedora.fedora.password]
+
 Riiif.not_found_image = Rails.root.join('app', 'assets', 'images', 'us_404.svg')
 Riiif.unauthorized_image = Rails.root.join('app', 'assets', 'images', 'us_404.svg')
 
