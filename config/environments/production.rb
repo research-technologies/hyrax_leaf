@@ -43,16 +43,30 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  config.action_cable.allowed_request_origins = ['https://localhost', "https://#{ENV.fetch('APPLICATION_HOST','localhost')}"]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
+  Rails.application.routes.default_url_options[:protocol] = 'https'
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  # config.log_level = :debug
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
+  
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  elsif ENV['LOGS_PATH'].present?
+    log_dir = File.join(ENV['LOGS_PATH'], ENV['APPLICATION_KEY'])
+    logger           = ActiveSupport::Logger.new(File.join(log_dir, "#{ENV['APPLICATION_KEY']}_#{ENV['RAILS_ENV']}.log"))
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -80,12 +94,9 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  config.active_job.queue_adapter = :sidekiq
+  
 end
