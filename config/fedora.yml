@@ -9,7 +9,7 @@ test:
   url: http://127.0.0.1:<%= ENV['FCREPO_TEST_PORT'] || 8986 %>/rest
   base_path: /test
 production:
-  user: fedoraAdmin
-  password: fedoraAdmin
-  url: http://127.0.0.1:8983/fedora/rest
-  base_path: /prod
+  user: <%= ENV.fetch('FEDORA_USER', 'fedoraAdmin') %>
+  password: <%= ENV.fetch('FEDORA_PASSWORD', 'fedoraAdmin') %>
+  url: <%= ENV.fetch('FEDORA_URL','http://127.0.0.1:8080/fcrepo/rest') %>
+  base_path: /<%= ENV.fetch('APPLICATION_KEY', 'prod') %>
