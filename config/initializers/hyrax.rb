@@ -83,7 +83,7 @@ Hyrax.config do |config|
   # config.redis_namespace = "hyrax"
 
   # Path to the file characterization tool
-  # config.fits_path = "fits.sh"
+  config.fits_path = "fits"
 
   # Path to the file derivatives creation tool
   # config.libreoffice_path = "soffice"
@@ -104,7 +104,7 @@ Hyrax.config do |config|
 
   # Location autocomplete uses geonames to search for named regions
   # Username for connecting to geonames
-  # config.geonames_username = ''
+  config.geonames_username = 'hykuleaf'
 
   # Should the acceptance of the licence agreement be active (checkbox), or
   # implied when the save button is pressed? Set to true for active
@@ -130,7 +130,7 @@ Hyrax.config do |config|
   #   * iiif_image_size_default
   #
   # Default is false
-  # config.iiif_image_server = false
+  config.iiif_image_server = true
 
   # Returns a URL that resolves to an image provided by a IIIF image server
   config.iiif_image_url_builder = lambda do |file_id, base_url, size|
