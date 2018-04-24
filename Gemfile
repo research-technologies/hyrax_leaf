@@ -52,7 +52,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'hyrax', '2.1.0.beta1'
+gem 'hyrax', '2.1.0.beta2'
 group :development, :test do
   gem 'solr_wrapper', '>= 0.3'
 end
@@ -71,4 +71,4 @@ gem 'riiif', '~> 1.1'
 gem 'pg', '~> 0.21.0'
 gem 'sidekiq'
 gem 'hydra-role-management'
-gem 'dog_biscuits', :git => 'git://github.com/geekscruff/dog_biscuits.git'
+gem 'dog_biscuits', :git => 'git://github.com/samvera-labs/dog_biscuits.git'
