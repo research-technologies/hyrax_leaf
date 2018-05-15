@@ -1,0 +1,53 @@
+schema_org:
+  volume_number:
+    property: 'volumeNumber'
+  series:
+    property: 'isPartOf'
+    type: 'http://schema.org/CreativeWork'
+    value: 'name'
+  presented_at:
+    property: 'workPerformed'
+    type: 'http://schema.org/Event'
+    value: 'name'
+  place_of_publication:
+    property: 'location'
+    type: 'http://schema.org/Place'
+    value: 'name'
+  part_of:
+    property: 'isPartOf'
+    type: 'http://schema.org/CreativeWork'
+    value: 'name'
+  part:
+    property: 'isPartOf'
+    type: 'http://schema.org/CreativeWork'
+    value: 'name'
+  pagination:
+    property: 'pagination'
+  official_url:
+    property: 'significantLink'
+  note:
+    property: 'note'
+  module_code:
+    property: 'identifier'
+  issue_number:
+    property: 'issueNumber'
+  isbn:
+    property: 'identifier'
+  former_identifier:
+    property: 'identifier'
+  editor:
+    property: 'editor'
+  edition:
+    property: 'version'
+  doi:
+    property: 'identifier'
+  date_published:
+    property: 'datePublished'
+  date_available:
+    property: 'datePublished'
+  advisor:
+    property: 'contributor'
+    type: 'http://schema.org/Person'
+    value: 'name'
+  abstract:
+    property: 'description'
