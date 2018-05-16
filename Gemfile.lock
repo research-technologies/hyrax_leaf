@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/samvera-labs/dog_biscuits.git
-  revision: ccdec7ca0eb2ae17f389b8bf36f34de17030473b
+  revision: 5e1ad970521d82d29424bfbf65bdbf1894fd90e3
   specs:
     dog_biscuits (0.1.0)
       hyrax (>= 2, < 3)
@@ -726,7 +726,7 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    tinymce-rails (4.7.12)
+    tinymce-rails (4.7.13)
       railties (>= 3.1.1)
     turbolinks (5.1.0)
       turbolinks-source (~> 5.1)
