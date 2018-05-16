@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/leaf-research-technologies/leaf_addons.git
+  revision: b750a5b474064840384e20a99847f596b61fa0f5
+  specs:
+    leaf_addons (0.1.0)
+      hyrax (>= 2, < 3)
+
+GIT
   remote: git://github.com/samvera-labs/dog_biscuits.git
   revision: 5e1ad970521d82d29424bfbf65bdbf1894fd90e3
   specs:
@@ -769,6 +776,7 @@ DEPENDENCIES
   hyrax (= 2.1.0.rc2)
   jbuilder (~> 2.5)
   jquery-rails
+  leaf_addons!
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.21.0)
   puma (~> 3.7)
