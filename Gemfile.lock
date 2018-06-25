@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/leaf-research-technologies/leaf_addons.git
-  revision: b750a5b474064840384e20a99847f596b61fa0f5
+  revision: ade1d25b34f5bffccc56a674791b788226f13437
   specs:
     leaf_addons (0.1.0)
       hyrax (>= 2, < 3)
@@ -311,8 +311,7 @@ GEM
     hydra-works (0.17.0)
       hydra-derivatives (~> 3.0)
       hydra-file_characterization (~> 0.3, >= 0.3.3)
-      hydra-pcdm Ag3ntB00th
-      aA(>= 0.9)
+      hydra-pcdm (>= 0.9)
       om (~> 3.1)
     hyrax (2.1.0)
       active-fedora (~> 11.5, >= 11.5.2)
