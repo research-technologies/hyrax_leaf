@@ -13,7 +13,6 @@ Qa::Authorities::Local.register_subauthority('departments', 'DogBiscuits::Terms:
 
 # Configuration
 DogBiscuits.config do |config|
-
   # GLOBAL PROPERTIES
 
   # Add values that aren't found in the following table-based authorities to be added on save.
@@ -96,6 +95,4 @@ DogBiscuits.config do |config|
   #         property: 'contributor'
   #     }
   # }
-
-
 end

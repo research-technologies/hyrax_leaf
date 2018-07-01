@@ -75,12 +75,11 @@ if ENV['RAILS_ENV'] == 'production'
 
     # Instead of 'bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'' you
     # can also use the 'ssl_bind' option.
- 
-    ssl_bind '127.0.0.1', ENV.fetch('PORT', '3000'), {
-      key: ENV['PATH_TO_KEY'],
-      cert: ENV['PATH_TO_CERT']
-        }
-    else
+
+    ssl_bind '127.0.0.1', ENV.fetch('PORT', '3000'),
+             key: ENV['PATH_TO_KEY'],
+             cert: ENV['PATH_TO_CERT']
+  else
     # Listens on port 3000
     # The default is 9292
     port ENV.fetch('PORT') { 3000 }

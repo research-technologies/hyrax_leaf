@@ -1,13 +1,13 @@
 GIT
   remote: git://github.com/leaf-research-technologies/leaf_addons.git
-  revision: ade1d25b34f5bffccc56a674791b788226f13437
+  revision: 251bfcd92c59cfa07ce35da682bf37471a098a47
   specs:
     leaf_addons (0.1.0)
       hyrax (>= 2, < 3)
 
 GIT
   remote: git://github.com/samvera-labs/dog_biscuits.git
-  revision: d877f35df607c453033956f4473d9f90bd8921e8
+  revision: 102ad164775d73f2316a0bb9146eeb065f3b658f
   branch: latest
   specs:
     dog_biscuits (0.1.0)

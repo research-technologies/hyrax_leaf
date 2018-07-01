@@ -43,15 +43,15 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
-  config.action_cable.allowed_request_origins = ['https://localhost', "https://#{ENV.fetch('APPLICATION_HOST', 'localhost')}",'http://localhost', "http://#{ENV.fetch('APPLICATION_HOST', 'localhost')}"]
+  config.action_cable.allowed_request_origins = ['https://localhost', "https://#{ENV.fetch('APPLICATION_HOST', 'localhost')}", 'http://localhost', "http://#{ENV.fetch('APPLICATION_HOST', 'localhost')}"]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  if ENV['SSL_CONFIGURED'] 
-    config.force_ssl = true 
-  else
-    config.force_ssl = false
-  end
-  
+  config.force_ssl = if ENV['SSL_CONFIGURED']
+                       true
+                     else
+                       false
+                     end
+
   Rails.application.routes.default_url_options[:protocol] = config.force_ssl ? 'https' : 'http'
 
   # Use the lowest log level to ensure availability of diagnostic information
