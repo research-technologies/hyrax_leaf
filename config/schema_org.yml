@@ -1,10 +1,28 @@
 schema_org:
   volume_number:
     property: 'volumeNumber'
+  subtitle:
+    property: 'name'
   series:
     property: 'isPartOf'
     type: 'http://schema.org/CreativeWork'
     value: 'name'
+  resource_type_general:
+    Audiovisual: 'http://schema.org/MediaObject'
+    Collection: 'http://bib.schema.org/Collection'
+    DataPaper: 'http://schema.org/CreativeWork'
+    Dataset: 'http://schema.org/Dataset'
+    Event: 'http://schema.org/Event'
+    Image: 'http://schema.org/ImageObject'
+    InteractiveResource: 'http://schema.org/CreativeWork'
+    Model: 'http://schema.org/CreativeWork'
+    PhysicalObject: 'http://schema.org/Thing'
+    Service: 'http://schema.org/Service'
+    Software: 'http://schema.org/Code'
+    Sound: 'http://schema.org/AudioObject'
+    Text: 'http://schema.org/CreativeWork'
+    Workflow: 'http://schema.org/CreativeWork'
+    Other: 'http://schema.org/Thing'
   presented_at:
     property: 'workPerformed'
     type: 'http://schema.org/Event'
@@ -33,6 +51,8 @@ schema_org:
     property: 'issueNumber'
   isbn:
     property: 'identifier'
+  funder:
+    property: 'funder'
   former_identifier:
     property: 'identifier'
   editor:
@@ -48,6 +68,10 @@ schema_org:
   advisor:
     property: 'contributor'
     type: 'http://schema.org/Person'
+    value: 'name'
+  access_provided_by:
+    property: 'provider'
+    type: 'http://schema.org/Organization'
     value: 'name'
   abstract:
     property: 'description'

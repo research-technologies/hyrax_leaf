@@ -3,6 +3,7 @@
 # load dog_biscuits config
 DOGBISCUITS = YAML.safe_load(File.read(Rails.root.join('config', 'dog_biscuits.yml'))).with_indifferent_access
 # include Terms
+Qa::Authorities::Local.register_subauthority('concepts', 'DogBiscuits::Terms::ConceptsTerms')
 Qa::Authorities::Local.register_subauthority('projects', 'DogBiscuits::Terms::ProjectsTerms')
 Qa::Authorities::Local.register_subauthority('organisations', 'DogBiscuits::Terms::OrganisationsTerms')
 Qa::Authorities::Local.register_subauthority('places', 'DogBiscuits::Terms::PlacesTerms')
@@ -22,7 +23,7 @@ DogBiscuits.config do |config|
   # config.authorities_add_new = []
 
   # Models to be used in the current application.
-  #   Available models are: ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package
+  #   Available models are: ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package
   #   Add values in constantized form, eg. 'ConferenceItem'
   # config.selected_models = []
 
