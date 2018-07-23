@@ -692,7 +692,7 @@ GEM
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
     slop (4.6.2)
-    solr_wrapper (1.2.0)
+    solr_wrapper (2.0.0)
       faraday
       retriable
       ruby-progressbar
