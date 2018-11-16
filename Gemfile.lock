@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/samvera-labs/dog_biscuits.git
-  revision: 2043df7710c244d662c38fc70d3f8b647be9d911
+  revision: 00d05d5bac229082d92d0dad22d0ac56ddb3f191
   branch: latest
   specs:
     dog_biscuits (0.1.0)
