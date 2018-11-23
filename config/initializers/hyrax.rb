@@ -83,7 +83,7 @@ Hyrax.config do |config|
   # config.redis_namespace = "hyrax"
 
   # Path to the file characterization tool
-  config.fits_path = 'fits'
+  # config.fits_path = "fits.sh"
 
   # Path to the file derivatives creation tool
   # config.libreoffice_path = "soffice"
@@ -104,7 +104,7 @@ Hyrax.config do |config|
 
   # Location autocomplete uses geonames to search for named regions
   # Username for connecting to geonames
-  config.geonames_username = 'hykuleaf'
+  # config.geonames_username = ''
 
   # Should the acceptance of the licence agreement be active (checkbox), or
   # implied when the save button is pressed? Set to true for active
@@ -116,8 +116,12 @@ Hyrax.config do |config|
   # The default is true.
   # config.work_requires_files = true
 
+  # How many rows of items should appear on the work show view?
+  # The default is 10
+  # config.show_work_item_rows = 10
+
   # Enable IIIF image service. This is required to use the
-  # UniversalViewer-ified show page
+  # IIIF viewer enabled show page
   #
   # If you have run the riiif generator, an embedded riiif service
   # will be used to deliver images via IIIF. If you have not, you will
@@ -130,21 +134,14 @@ Hyrax.config do |config|
   #   * iiif_image_size_default
   #
   # Default is false
-  config.iiif_image_server = true
+  # config.iiif_image_server = false
 
   # Returns a URL that resolves to an image provided by a IIIF image server
-  config.iiif_image_url_builder = lambda do |file_id, base_url, size|
-    Riiif::Engine.routes.url_helpers.image_url(file_id, host: base_url, size: size)
-  end
   # config.iiif_image_url_builder = lambda do |file_id, base_url, size|
   #   "#{base_url}/downloads/#{file_id.split('/').first}"
   # end
 
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
-  config.iiif_info_url_builder = lambda do |file_id, base_url|
-    uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url)
-    uri.sub(%r{/info\.json\Z}, '')
-  end
   # config.iiif_info_url_builder = lambda do |_, _|
   #   ""
   # end
@@ -169,18 +166,15 @@ Hyrax.config do |config|
   #
   # The banner image. Should be 5000px wide by 1000px tall
   # config.banner_image = 'https://cloud.githubusercontent.com/assets/92044/18370978/88ecac20-75f6-11e6-8399-6536640ef695.jpg'
-  config.banner_image = ENV['BANNER'] unless ENV['BANNER'].blank?
 
   # Temporary paths to hold uploads before they are ingested into FCrepo
   # These must be lambdas that return a Pathname. Can be configured separately
   #  config.upload_path = ->() { Rails.root + 'tmp' + 'uploads' }
   #  config.cache_path = ->() { Rails.root + 'tmp' + 'uploads' + 'cache' }
-  config.upload_path = ->() { ENV.fetch('UPLOADS_PATH', File.join(Rails.root, 'tmp', 'uploads/')) }
-  config.cache_path = ->() { ENV.fetch('CACHE_PATH', File.join(Rails.root, 'tmp', 'uploads', 'cache')) }
 
   # Location on local file system where derivatives will be stored
   # If you use a multi-server architecture, this MUST be a shared volume
-  config.derivatives_path = ENV.fetch('DERIVATIVES_PATH', File.join(Rails.root, 'tmp', 'derivatives'))
+  # config.derivatives_path = Rails.root.join('tmp', 'derivatives')
 
   # Should schema.org microdata be displayed?
   # config.display_microdata = true
@@ -193,7 +187,6 @@ Hyrax.config do |config|
   # prior to being ingested into the repository or having derivatives generated.
   # If you use a multi-server architecture, this MUST be a shared volume.
   # config.working_path = Rails.root.join( 'tmp', 'uploads')
-  config.working_path = ENV.fetch('WORKING_PATH', File.join(Rails.root, 'tmp', 'uploads'))
 
   # Should the media display partial render a download link?
   # config.display_media_download_link = true
@@ -252,7 +245,7 @@ Hyrax.config do |config|
     if defined? BrowseEverything
       config.browse_everything = BrowseEverything.config
     else
-      Rails.logger.warn 'BrowseEverything is not installed'
+      Rails.logger.warn "BrowseEverything is not installed"
     end
   rescue Errno::ENOENT
     config.browse_everything = nil
@@ -275,7 +268,7 @@ Hyrax.config do |config|
   # config.whitelisted_ingest_dirs = []
 end
 
-Date::DATE_FORMATS[:standard] = '%m/%d/%Y'
+Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
 
 Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
