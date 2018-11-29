@@ -21,12 +21,14 @@ Hyrax.config do | config |
   config.iiif_image_server = true
   
   config.contact_email = ENV['CONTACT_EMAIL'] if ENV['CONTACT_EMAIL']
-  
-  config.iiif_image_server = false
 
-  # Returns a URL that resolves to an image provided by a IIIF image server
   config.iiif_image_url_builder = lambda do |file_id, base_url, size|
-    "#{base_url}/downloads/#{file_id.split('/').first}"
+      Riiif::Engine.routes.url_helpers.image_url(file_id, host: base_url, size: size)
+  end
+  
+  config.iiif_info_url_builder = lambda do |file_id, base_url|
+      uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url)
+      uri.sub(%r{/info\.json\Z}, '')
   end
 
   # config.iiif_image_compliance_level_uri = 'http://iiif.io/api/image/2/level2.json'
