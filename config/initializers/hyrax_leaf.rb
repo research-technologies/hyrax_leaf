@@ -22,4 +22,19 @@ Hyrax.config do | config |
   
   config.contact_email = ENV['CONTACT_EMAIL'] if ENV['CONTACT_EMAIL']
   
+  config.iiif_image_server = false
+
+  # Returns a URL that resolves to an image provided by a IIIF image server
+  config.iiif_image_url_builder = lambda do |file_id, base_url, size|
+    "#{base_url}/downloads/#{file_id.split('/').first}"
+  end
+
+  # config.iiif_image_compliance_level_uri = 'http://iiif.io/api/image/2/level2.json'
+
+  # Returns a IIIF image size default
+  # config.iiif_image_size_default = '600,'
+
+  # Fields to display in the IIIF metadata section; default is the required fields
+  # config.iiif_metadata_fields = Hyrax::Forms::WorkForm.required_fields
+  
 end
