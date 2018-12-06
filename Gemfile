@@ -68,7 +68,7 @@ end
 
 gem 'riiif', '~> 2.0'
 
-gem 'dog_biscuits', git: 'git://github.com/samvera-labs/dog_biscuits.git', branch: 'latest'
+gem 'dog_biscuits', git: 'git://github.com/samvera-labs/dog_biscuits.git'
 gem 'hydra-role-management'
 gem 'leaf_addons', git: 'git://github.com/leaf-research-technologies/leaf_addons.git'
 gem 'pg', '~> 0.21.0'
