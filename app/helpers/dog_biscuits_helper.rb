@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 module DogBiscuitsHelper
-  # TODO: better comments
   # Return the label for publication status
   #
   # @param value [String]
@@ -20,7 +19,6 @@ module DogBiscuitsHelper
     value
   end
 
-  # TODO: doc and test
   def truncate_text_and_iconify_link(value)
     if value.is_a? String
       iconify_auto_link(truncate_text(value).to_s)
@@ -31,6 +29,15 @@ module DogBiscuitsHelper
   end
 
   def truncate_text(text)
-    truncate(text, length: 300, separator: ' ').force_encoding 'utf-8'
+    text.truncate_words(50, omission: ' ...')
+  end
+  
+  def restricted?(term)
+    return false if DogBiscuits.config.restricted_properties_enabled
+    # evaluate restriction
+    (
+      DogBiscuits.config.restricted_properties.include?(term) && 
+        current_user.send("#{DogBiscuits.config.restricted_role}?") == true
+    ) || !DogBiscuits.config.restricted_properties.include?(term)
   end
 end

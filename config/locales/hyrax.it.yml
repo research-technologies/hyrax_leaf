@@ -4,47 +4,8 @@ it:
     search:
       fields:
         facet:
-          based_near_label_sim: luogo
-          creator_sim: Creatore
-          file_format_sim: Formato
-          generic_type_sim: Tipo
-          keyword_sim: Parola chiave
-          language_sim: Lingua
-          publisher_sim: Editore
-          subject_sim: Soggetto
         index:
-          based_near_tesim: luogo
-          contributor_tesim: Collaboratore
-          creator_tesim: Creatore
-          date_created_tesim: data di creazione
-          date_modified_dtsi: Data modificata
-          date_uploaded_dtsi: Data caricata
-          description_tesim: Descrizione
-          file_format_tesim: Formato del file
-          identifier_tesim: Identifier
-          keyword_tesim: Parola chiave
-          language_tesim: Lingua
-          license_tesim: Licenza
-          publisher_tesim: Editore
-          rights_statement_tesim: Diritti
-          subject_tesim: Soggetto
         show:
-          based_near_tesim: luogo
-          contributor_tesim: Collaboratore
-          creator_tesim: Creatore
-          date_created_tesim: data di creazione
-          date_modified_dtsi: Data modificata
-          date_uploaded_dtsi: Data caricata
-          description_tesim: Descrizione
-          file_format_tesim: Formato del file
-          identifier_tesim: Identifier
-          keyword_tesim: Parola chiave
-          language_tesim: Lingua
-          license_tesim: Licenza
-          publisher_tesim: Editore
-          rights_statement_tesim: Diritti
-          subject_tesim: Soggetto
-          title_tesim: Titolo
   hyrax:
     account_name: ID del mio istituto dell'istituto
     directory:
