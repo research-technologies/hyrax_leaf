@@ -3,35 +3,35 @@
 module AuthorityService
   # Object based
   
-  class DepartmentsService < DogBiscuits::Terms::DepartmentsTermsService
+  class DepartmentsService < DogBiscuits::Terms::DepartmentsTerms
     include ::LocalAuthorityConcern
   end
   
-  class EventsService < DogBiscuits::Terms::EventsTermsService
+  class EventsService < DogBiscuits::Terms::EventsTerms
     include ::LocalAuthorityConcern
   end
   
-  class GroupsService < DogBiscuits::Terms::GroupsTermsService
+  class GroupsService < DogBiscuits::Terms::GroupsTerms
     include ::LocalAuthorityConcern
   end
   
-  class PeopleService < DogBiscuits::Terms::PeopleTermsService
+  class PeopleService < DogBiscuits::Terms::PeopleTerms
     include ::LocalAuthorityConcern
   end
   
-  class PlacesService < DogBiscuits::Terms::PlacesTermsService
+  class PlacesService < DogBiscuits::Terms::PlacesTerms
     include ::LocalAuthorityConcern
   end
   
-  class OrganisationsService < DogBiscuits::Terms::OrganisationsTermsService
+  class OrganisationsService < DogBiscuits::Terms::OrganisationsTerms
     include ::LocalAuthorityConcern
   end
   
-  class ProjectsService < DogBiscuits::Terms::ProjectsTermsService
+  class ProjectsService < DogBiscuits::Terms::ProjectsTerms
     include ::LocalAuthorityConcern
   end
   
-  class ConceptsService < DogBiscuits::Terms::ConceptsTermsService
+  class ConceptsService < DogBiscuits::Terms::ConceptsTerms
     include ::LocalAuthorityConcern
   end
   
