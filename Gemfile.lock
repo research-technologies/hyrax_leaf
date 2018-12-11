@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/samvera-labs/dog_biscuits.git
-  revision: 014a711ad929c4eff54f3d0d8831059d3b85303b
+  revision: 0839c38ed093f6664f960a995612aa4712e19108
   specs:
     dog_biscuits (0.1.0)
       hyrax (>= 2, < 3)
