@@ -5,13 +5,6 @@ GIT
     leaf_addons (0.1.0)
       hyrax (>= 2, < 3)
 
-GIT
-  remote: git://github.com/samvera-labs/dog_biscuits.git
-  revision: dc9bfc1c86458881c5a39994a3e8aa0bae0bdb59
-  specs:
-    dog_biscuits (0.1.0)
-      hyrax (>= 2, < 3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -182,6 +175,8 @@ GEM
     devise-guests (0.6.1)
       devise
     diff-lcs (1.3)
+    dog_biscuits (0.4.0)
+      hyrax (>= 2, < 3)
     dropbox_api (0.1.12)
       faraday (~> 0.9, ~> 0.8)
       oauth2 (~> 1.1)
@@ -791,7 +786,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-guests (~> 0.6)
-  dog_biscuits!
+  dog_biscuits
   fcrepo_wrapper
   hydra-role-management
   hyrax (~> 2.4)
