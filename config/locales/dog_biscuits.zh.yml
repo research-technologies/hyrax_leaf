@@ -1,5 +1,44 @@
 ---
 zh:
+  blacklight:
+    search:
+      fields:
+        facet:
+          based_near_label_sim: 地点
+          contributor_combined_sim: 贡献者
+          contributor_type_sim: 贡献者类型
+          creator_sim: 创造者
+          date_sim: 日期
+          department_sim: 部门，学校或学院
+          funder_sim: 出资者
+          human_readable_type_sim: 类型
+          keyword_sim: 关键词
+          language_sim: 语言
+          packaged_by_titles_sim: 在包中
+          part_of_sim: 部分
+          publication_status_sim: 出版状态
+          publisher_sim: 出版者
+          qualification_level_sim: 资格等级
+          qualification_name_sim: 资格名称
+          refereed_sim: 同行评论？
+          resource_type_sim: 资源类型
+          subject_sim: 学科
+        index:
+          contributor_combined_tesim: 贡献者
+          creator_tesim: 创造者
+          date_tesim: 日期
+          depositor_tesim: 所有者
+          embargo_release_date_tesim: 禁运发布
+          keyword_tesim: 关键词
+          language_tesim: 语言
+          lease_expiration_date_tesim: 租约到期
+          license_tesim: 执照
+          proxy_depositor_tesim: 储户
+          publisher_tesim: 出版者
+          resource_type_tesim: 资源类型
+          rights_statement_tesim: 权利声明
+          subject_tesim: 学科
+          title_tesim: 标题
   dog_biscuits:
     labels:
       abstract: 抽象

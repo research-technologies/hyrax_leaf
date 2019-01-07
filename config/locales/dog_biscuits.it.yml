@@ -1,5 +1,44 @@
 ---
 it:
+  blacklight:
+    search:
+      fields:
+        facet:
+          based_near_label_sim: Posizione
+          contributor_combined_sim: Collaboratore
+          contributor_type_sim: Tipo di collaboratore
+          creator_sim: Creatore
+          date_sim: Data
+          department_sim: Dipartimento, Scuola o Facoltà
+          funder_sim: Funder
+          human_readable_type_sim: genere
+          keyword_sim: parole
+          language_sim: linguaggio
+          packaged_by_titles_sim: Nel pacchetto
+          part_of_sim: Parte di
+          publication_status_sim: Stato di pubblicazione
+          publisher_sim: Editore
+          qualification_level_sim: Livello di qualificazione
+          qualification_name_sim: Nome di qualifica
+          refereed_sim: Peer recensione?
+          resource_type_sim: Tipo di risorsa
+          subject_sim: Soggetto
+        index:
+          contributor_combined_tesim: Collaboratore
+          creator_tesim: Creatore
+          date_tesim: Data
+          depositor_tesim: Proprietario
+          embargo_release_date_tesim: Emissioni su Embargo
+          keyword_tesim: parole
+          language_tesim: linguaggio
+          lease_expiration_date_tesim: Il contratto di locazione scade il
+          license_tesim: Licenza
+          proxy_depositor_tesim: Depositante
+          publisher_tesim: Editore
+          resource_type_tesim: Tipo di risorsa
+          rights_statement_tesim: Dichiarazione dei diritti
+          subject_tesim: Soggetto
+          title_tesim: Titolo
   dog_biscuits:
     labels:
       abstract: Astratto

@@ -1,5 +1,44 @@
 ---
 fr:
+  blacklight:
+    search:
+      fields:
+        facet:
+          based_near_label_sim: Emplacement
+          contributor_combined_sim: Donateur
+          contributor_type_sim: Type de contributeur
+          creator_sim: Créateur
+          date_sim: Rendez-vous amoureux
+          department_sim: Département, école ou faculté
+          funder_sim: Bailleur de fonds
+          human_readable_type_sim: Type
+          keyword_sim: Mots clés
+          language_sim: La langue
+          packaged_by_titles_sim: En paquet
+          part_of_sim: Partie de
+          publication_status_sim: Statut de publication
+          publisher_sim: Éditeur
+          qualification_level_sim: Niveau de qualification
+          qualification_name_sim: Nom de qualification
+          refereed_sim: Peer examiné?
+          resource_type_sim: Type de ressource
+          subject_sim: Assujettir
+        index:
+          contributor_combined_tesim: Donateur
+          creator_tesim: Créateur
+          date_tesim: Rendez-vous amoureux
+          depositor_tesim: Propriétaire
+          embargo_release_date_tesim: Les communiqués d'embargo sur
+          keyword_tesim: Mots clés
+          language_tesim: La langue
+          lease_expiration_date_tesim: Le bail expire le
+          license_tesim: Licence
+          proxy_depositor_tesim: Déposant
+          publisher_tesim: Éditeur
+          resource_type_tesim: Type de ressource
+          rights_statement_tesim: Déclaration de droits
+          subject_tesim: Assujettir
+          title_tesim: Titre
   dog_biscuits:
     labels:
       abstract: Abstrait

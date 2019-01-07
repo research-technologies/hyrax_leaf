@@ -1,5 +1,44 @@
 ---
 es:
+  blacklight:
+    search:
+      fields:
+        facet:
+          based_near_label_sim: Ubicación
+          contributor_combined_sim: Contribuyente
+          contributor_type_sim: Tipo de colaborador
+          creator_sim: Creador
+          date_sim: Fecha
+          department_sim: Departamento, Escuela o Facultad
+          funder_sim: Financiador
+          human_readable_type_sim: Tipo
+          keyword_sim: Palabras clave
+          language_sim: Idioma
+          packaged_by_titles_sim: En paquete
+          part_of_sim: Parte de
+          publication_status_sim: Estado de publicación
+          publisher_sim: Editor
+          qualification_level_sim: Nivel de calificación
+          qualification_name_sim: Nombre de calificacion
+          refereed_sim: "¿Revisión por pares?"
+          resource_type_sim: Tipo de recurso
+          subject_sim: Tema
+        index:
+          contributor_combined_tesim: Contribuyente
+          creator_tesim: Creador
+          date_tesim: Fecha
+          depositor_tesim: Propietario
+          embargo_release_date_tesim: Emisiones de Embargo en
+          keyword_tesim: Palabras clave
+          language_tesim: Idioma
+          lease_expiration_date_tesim: El arrendamiento expira el
+          license_tesim: Licencia
+          proxy_depositor_tesim: Depositor
+          publisher_tesim: Editor
+          resource_type_tesim: Tipo de recurso
+          rights_statement_tesim: Declaración de derechos
+          subject_tesim: Tema
+          title_tesim: Título
   dog_biscuits:
     labels:
       abstract: Resumen

@@ -1,6 +1,6 @@
 en:
   dog_biscuits:
-    labels:
+    fields:
       abstract: Abstract
       access_provided_by: Access provided by
       advisor: Advisor / supervisor
@@ -14,6 +14,7 @@ en:
       awarding_institution: Awarding institution
       based_near: Location
       based_near_label: Location
+      contributor: Contributor
       contributor_combined: Contributor
       contributor_type: Contributor type
       creator: Creator
@@ -85,6 +86,7 @@ en:
       rights_statement: Rights statement
       series: Series
       sip_uuid: SIP UUID
+      source: Source
       subject: Subject
       subtitle: Subtitle
       title: Title
@@ -135,6 +137,7 @@ en:
         awarding_institution: Awarding institution
         based_near: Location
         based_near_label: Location
+        contributor: Contributor
         contributor_combined: Contributor
         contributor_type: Contributor type
         creator: Creator
@@ -206,8 +209,48 @@ en:
         rights_statement: Rights statement
         series: Series
         sip_uuid: SIP UUID
+        source: Source
         subject: Subject
         subtitle: Subtitle
         title: Title
         transfer_uuid: Transfer UUID
         volume_number: Volume
+  blacklight:
+    search:
+      fields:
+        facet:
+          human_readable_type_sim: Type
+          resource_type_sim: Resource type
+          creator_sim: Creator
+          contributor_combined_sim: Contributor
+          contributor_type_sim: Contributor type
+          publisher_sim: Publisher
+          department_sim: Department, School or Faculty
+          funder_sim: Funder
+          date_sim: Date
+          keyword_sim: Keywords
+          subject_sim: Subject
+          language_sim: Language
+          based_near_label_sim: Location
+          part_of_sim: Part of
+          qualification_level_sim: Qualification level
+          qualification_name_sim: Qualification name
+          refereed_sim: Peer reviewed?
+          publication_status_sim: Publication status
+          packaged_by_titles_sim: In package
+        index:
+          title_tesim: Title
+          creator_tesim: Creator
+          publisher_tesim: Publisher
+          contributor_combined_tesim: Contributor
+          date_tesim: Date
+          keyword_tesim: Keywords
+          subject_tesim: Subject
+          resource_type_tesim: Resource type
+          rights_statement_tesim: Rights statement
+          license_tesim: License
+          language_tesim: Language
+          depositor_tesim: Owner
+          proxy_depositor_tesim: Depositor
+          embargo_release_date_tesim: Embargo releases on
+          lease_expiration_date_tesim: Lease expires on
