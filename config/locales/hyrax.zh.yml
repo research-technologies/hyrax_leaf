@@ -1,11 +1,5 @@
 ---
 zh:
-  blacklight:
-    search:
-      fields:
-        facet:
-        index:
-        show:
   hyrax:
     account_name: 我的机构帐户标识符
     directory:

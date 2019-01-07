@@ -1,11 +1,5 @@
 ---
 fr:
-  blacklight:
-    search:
-      fields:
-        facet:
-        index:
-        show:
   hyrax:
     account_name: L'ID de compte de mon établissement
     directory:

@@ -1,11 +1,5 @@
 ---
 it:
-  blacklight:
-    search:
-      fields:
-        facet:
-        index:
-        show:
   hyrax:
     account_name: ID del mio istituto dell'istituto
     directory:

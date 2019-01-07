@@ -1,11 +1,5 @@
 ---
 es:
-  blacklight:
-    search:
-      fields:
-        facet:
-        index:
-        show:
   hyrax:
     account_name: Mi identificador de cuenta institucional
     directory:

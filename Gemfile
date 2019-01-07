@@ -55,16 +55,16 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'hyrax', '~> 2.4'
 group :development, :test do
   gem 'solr_wrapper', '>= 0.3'
+  gem 'fcrepo_wrapper'
+  gem 'rspec-rails'
+  gem 'i18n-tasks'
+  gem 'easy_translate'
 end
 
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'jquery-rails'
 gem 'rsolr', '>= 1.0'
-group :development, :test do
-  gem 'fcrepo_wrapper'
-  gem 'rspec-rails'
-end
 
 gem 'riiif', '~> 2.0'
 

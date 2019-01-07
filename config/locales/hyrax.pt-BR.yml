@@ -1,11 +1,5 @@
 ---
 pt-BR:
-  blacklight:
-    search:
-      fields:
-        facet:
-        index:
-        show:
   hyrax:
     account_name: ID da conta da minha instituição
     directory:

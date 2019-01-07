@@ -3,9 +3,7 @@ de:
   blacklight:
     search:
       fields:
-        facet:
-        index:
-        show:
+        show: 
   hyrax:
     account_name: Meine Institution Konto-ID
     directory:
