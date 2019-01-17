@@ -139,7 +139,6 @@ zh:
         advisor: 论文顾问或主管。
         based_near: 与工作相关的地名，例如其出版地点，或工作内容所涉及的城市，州或国家/地区。呼吁<a href='http://www.geonames.org'> GeoNames网络服务</a>。
         based_near_label: 与工作相关的地名，例如其出版地点，或工作内容所涉及的城市，州或国家/地区。呼吁<a href='http://www.geonames.org'> GeoNames网络服务</a>。
-        content_version: 该文件的版本，例如。作者的原创或接受的手稿。
         contributor: 您想要在创作作品中发挥作用而不是主要角色的人或团体。
         creator: 负责工作的人或团体。通常这是内容的作者。应首先使用姓氏输入个人姓名，例如： “史密斯，约翰。”
         date: 工作日期。
