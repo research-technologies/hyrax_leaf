@@ -22,10 +22,10 @@ Hyrax.config do |config|
   # config.rendering_predicate = ::RDF::DC.hasFormat
 
   # Email recipient of messages sent via the contact form
-  # config.contact_email = "repo-admin@example.org"
+  config.contact_email = ENV['CONTACT_FORM_RECIPIENT_EMAIL'] || "repo-admin@example.org"
 
   # Text prefacing the subject entered in the contact form
-  # config.subject_prefix = "Contact form:"
+  config.subject_prefix = ENV['CONTACT_FORM_SUBJECT_PREFIX'] || "Contact form:"
 
   # How many notifications should be displayed on the dashboard
   # config.max_notifications_for_dashboard = 5
@@ -46,7 +46,7 @@ Hyrax.config do |config|
   # config.analytics = false
 
   # Google Analytics tracking ID to gather usage statistics
-  # config.google_analytics_id = 'UA-99999999-1'
+  # config.google_analytics_id = ENV['GOOGLE_ANALYTICS_ID'] || 'UA-99999999-1'
 
   # Date you wish to start collecting Google Analytic statistics for
   # Leaving it blank will set the start date to when ever the file was uploaded by
@@ -83,7 +83,7 @@ Hyrax.config do |config|
   # config.redis_namespace = "hyrax"
 
   # Path to the file characterization tool
-  # config.fits_path = "fits.sh"
+  config.fits_path = ENV['FITS_PATH'] || "/fits/fits-1.0.5/fits.sh"
 
   # Path to the file derivatives creation tool
   # config.libreoffice_path = "soffice"
@@ -175,6 +175,11 @@ Hyrax.config do |config|
   # Location on local file system where derivatives will be stored
   # If you use a multi-server architecture, this MUST be a shared volume
   # config.derivatives_path = Rails.root.join('tmp', 'derivatives')
+  if ENV['DERIVATIVES_PATH']
+    config.derivatives_path = Pathname.new(ENV['DERIVATIVES_PATH'])
+  else
+    config.derivatives_path = Rails.root.join('tmp', 'derivatives')
+  end
 
   # Should schema.org microdata be displayed?
   # config.display_microdata = true
@@ -268,7 +273,10 @@ Hyrax.config do |config|
   # config.whitelisted_ingest_dirs = []
 end
 
-Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
+DEFAULT_DATE_FORMAT = ENV['DEFAULT_DATE_FORMAT'] || '%d/%m/%Y'
+Date::DATE_FORMATS[:standard] = DEFAULT_DATE_FORMAT
+DateTime::DATE_FORMATS[:standard] = DEFAULT_DATE_FORMAT
+Date::DATE_FORMATS[:default] = DEFAULT_DATE_FORMAT
 
 Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')

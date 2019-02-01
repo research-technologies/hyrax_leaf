@@ -3,6 +3,8 @@
 config = YAML.safe_load(ERB.new(IO.read(Rails.root + 'config' + 'redis.yml')).result)[Rails.env].with_indifferent_access
 redis_config = config.merge(thread_safe: true)
 
+# redis_conn = { url: "redis://#{redis_config[:host]}:#{redis_config[:port]}/" }
+
 Sidekiq::Logging.logger.level = Logger::WARN if ENV['RAILS_ENV'] == 'production'
 
 Sidekiq.configure_server do |s|

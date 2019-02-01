@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: hyrax-core_production
+  url: redis://<%= ENV['REDIS_HOST'] || 'redis' %>:<%= ENV['REDIS_PORT'] || '6379' %>/1
+  channel_prefix: hyrax_production
