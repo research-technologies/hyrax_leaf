@@ -11,6 +11,7 @@ The environment variables used by docker during build are hidden within the dock
   * Postgres username and password
   * RAILS_ENV (set to production)
   * Gem key (set to hull_culture)
+
 Until these are resolved to be all read from a single file, if you change these values, they also need to be changed in the docker files
 
 ## Install from docker
