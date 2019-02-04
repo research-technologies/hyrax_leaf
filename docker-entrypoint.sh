@@ -38,6 +38,16 @@ else
     # exit 1
 fi
 
+# generators will fail if db doesn't exist
+# if it doesn't, run:
+# rake db:create
+FLAG=""
+if [ ! -f $APP_WORKDIR/shared/.gem_installed ]; then
+    FLAG=" --initial"
+    touch $APP_WORKDIR/shared/.gem_installed
+fi
+rails g $GEM_KEY:install $FLAG
+
 bundle exec rake assets:clean assets:precompile
 bundle exec rake hyrax:default_admin_set:create
 bundle exec rake hyrax:workflow:load

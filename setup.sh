@@ -9,12 +9,6 @@ bundle install --without development test
 # remove anything not in Gemfile
 bundle clean --force
 
-# generators will fail if db doesn't exist
-# if it doesn't, run:
-# rake db:create
-
-rails g $GEM_KEY:install --initial
-
 # TODO: Is the sed command needed?
 # sed -i "s/gem 'iiif_manifest', '~> 0.3.0'/gem 'iiif_manifest', '~> 0.4.0'/g" Gemfile
 bundle update iiif_manifest --conservative

@@ -47,17 +47,16 @@ RUN mkdir -p /data
 
 WORKDIR $APP_WORKDIR
 
+# Copy local hyrax leaf
+RUN mkdir app
+COPY hyrax_leaf /app/hull_culture
+
 COPY repo_builder.sh /bin/
 RUN chmod +x /bin/repo_builder.sh
 RUN /bin/repo_builder.sh
 
 COPY setup.sh /bin/
 RUN chmod +x /bin/setup.sh
-
-# Copy local hyrax leaf
-RUN mkdir app
-COPY hyrax_leaf /app/hull_culture
-
 RUN /bin/setup.sh
 
 RUN mkdir -p /app/hull_culture/shared/pids

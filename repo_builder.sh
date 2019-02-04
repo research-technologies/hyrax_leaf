@@ -8,9 +8,9 @@
 
 echo SETTING LOCAL VARIABLES
 
-export GEM_KEY="hull_culture"
-export GEM_SOURCE="https://github.com/research-technologies"
-export APPLICATION_KEY="hull_culture"
+export GEM_KEY=hull_culture
+export GEM_SOURCE=https://github.com/research-technologies
+export APPLICATION_KEY=hull_culture
 export APP_URL='https://github.com/research-technologies/hyrax_leaf'
 export BRANCH='master'
 
@@ -21,7 +21,7 @@ export BRANCH='master'
 # git clone $APP_URL --branch $BRANCH .
 git clone $GEM_SOURCE/$GEM_KEY.git ./vendor/$GEM_KEY
 
-APP_KEY=$(echo $APPLICATION_KEY)
-GEM_KEY=$(echo $GEM_KEY)
-DB=$APP_KEY
-DB_USER=$APP_KEY
+# Insert gems
+if ! grep -q "$GEM_KEY" "Gemfile"; then
+  echo -e "\ngem '"$GEM_KEY"', :path => 'vendor/"$GEM_KEY"'" >> Gemfile
+fi
