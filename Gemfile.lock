@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/leaf-research-technologies/leaf_addons.git
+  remote: https://github.com/leaf-research-technologies/leaf_addons.git
   revision: f9e902ea02acb7ae394c970806e6b603e3d09e7f
   specs:
     leaf_addons (0.1.0)
@@ -844,4 +844,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.6

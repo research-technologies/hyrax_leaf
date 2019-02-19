@@ -32,14 +32,6 @@ gem 'redis', '~> 3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-end
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -59,6 +51,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'i18n-tasks'
   gem 'easy_translate'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
 end
 
 gem 'devise'
@@ -70,6 +67,6 @@ gem 'riiif', '~> 2.0'
 
 gem 'dog_biscuits'
 gem 'hydra-role-management'
-gem 'leaf_addons', git: 'git://github.com/leaf-research-technologies/leaf_addons.git'
+gem 'leaf_addons', git: 'https://github.com/leaf-research-technologies/leaf_addons.git'
 gem 'pg', '~> 0.21.0'
 gem 'sidekiq'
