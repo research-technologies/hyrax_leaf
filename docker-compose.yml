@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 
 volumes:
   fcrepo:
@@ -63,7 +63,7 @@ services:
     networks:
       internal:
 
-  app:
+  app: &app
     build: .
     env_file:
       - .env
@@ -76,8 +76,7 @@ services:
       internal:
 
   web:
-    extends:
-      service: app
+    <<: *app
     command: bash -c "/bin/docker-entrypoint.sh"
     depends_on:
       - db
@@ -90,8 +89,7 @@ services:
       - 3000:3000
 
   workers:
-    extends:
-      service: app
+    <<: *app
     command: bundle exec sidekiq
     environment:
       - SETTINGS__FITS_PATH=/fits/fits-1.0.5/fits.sh
