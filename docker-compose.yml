@@ -57,20 +57,6 @@ services:
       - /opt/solr/solr_conf
 
 
-  # db:
-  #   build: docker/db
-  #   volumes:
-  #     - db:/var/lib/postgresql/data
-  #   env_file:
-  #     - .env
-  #   healthcheck:
-  #     test: "CMD echo 'SELECT 1' | PGPASSWORD=password psql --host 127.0.0.1 --username postgres --dbname hyrax_development --quiet --no-align --tuples-only"
-  #     interval: 30s
-  #     timeout: 5s
-  #     retries: 3
-  #   networks:
-  #     internal:
-
   db: 
     image: postgres:11-alpine
     volumes:
@@ -83,8 +69,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - ./docker/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      - ./docker/db/docker-healthcheck.sh:/usr/local/bin/docker-healthcheck.sh
+      - db:/var/lib/postgresql/data
     networks:
       internal:
     expose:
