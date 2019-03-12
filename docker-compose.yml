@@ -2,7 +2,7 @@ version: '3'
 
 volumes:
   fcrepo:
-  solr_home:
+  solr:
   db:
   redis:
   file_uploads:
@@ -28,14 +28,13 @@ services:
       internal:
 
   solr:
-    build: docker/solr
-    volumes:
-      - solr_home:/solr_home
-      - file_uploads:/data/tmp/uploads
+    image: solr:7-alpine
     expose:
       - 8983
     ports:
       - 8983:8983
+    env_file:
+      - .env
     healthcheck:
       test:
         - CMD
@@ -48,20 +47,50 @@ services:
       retries: 3
     networks:
       internal:
+    volumes:
+      - solr:/opt/solr/server/solr/mycores
+      - ./solr/conf:/opt/solr/solr_conf
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - ${SOLR_CORE}
+      - /opt/solr/solr_conf
 
-  db:
-    build: docker/db
+
+  # db:
+  #   build: docker/db
+  #   volumes:
+  #     - db:/var/lib/postgresql/data
+  #   env_file:
+  #     - .env
+  #   healthcheck:
+  #     test: "CMD echo 'SELECT 1' | PGPASSWORD=password psql --host 127.0.0.1 --username postgres --dbname hyrax_development --quiet --no-align --tuples-only"
+  #     interval: 30s
+  #     timeout: 5s
+  #     retries: 3
+  #   networks:
+  #     internal:
+
+  db: 
+    image: postgres:11-alpine
     volumes:
       - db:/var/lib/postgresql/data
     env_file:
       - .env
     healthcheck:
-      test: "CMD echo 'SELECT 1' | PGPASSWORD=password psql --host 127.0.0.1 --username postgres --dbname hyrax_development --quiet --no-align --tuples-only"
+      test: "CMD echo 'SELECT 1' | POSTGRES_PASSWORD=${POSTGRES_PASSWORD} psql --host 127.0.0.1 --username #{POSTGRES_USER} --dbname #{POSTGRES_DB} --quiet --no-align --tuples-only"
       interval: 30s
       timeout: 5s
       retries: 3
+    volumes:
+      - ./docker/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/db/docker-healthcheck.sh:/usr/local/bin/docker-healthcheck.sh
     networks:
       internal:
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
 
   app: &app
     build: .
