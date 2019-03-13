@@ -13,7 +13,8 @@ Hyrax.config do | config |
   config.derivatives_path = ENV.fetch('DERIVATIVES_PATH', File.join(Rails.root, 'tmp', 'derivatives'))
   config.working_path = ENV.fetch('WORKING_PATH', File.join(Rails.root, 'tmp', 'uploads'))
   config.branding_path = ENV.fetch('BRANDING_PATH', Rails.root.join('public', 'branding'))
-  config.fits_path = 'fits'
+  config.fits_path = ENV.fetch('FITS_PATH', 'fits')
+  config.libreoffice_path = ENV.fetch('LIBREOFFICE_PATH', 'soffice')
   
   # Other config
   config.banner_image = ENV['BANNER'] if ENV['BANNER']
