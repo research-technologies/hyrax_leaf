@@ -80,10 +80,17 @@ services:
     build: .
     env_file:
       - .env
+    args:
+      RAILS_ENV: ${RAILS_ENV}
+      UPLOADS_PATH: ${UPLOADS_PATH}
+      DERIVATIVES_PATH: ${DERIVATIVES_PATH}
+      CACHE_PATH: ${CACHE_PATH}
+      APP_WORKDIR: ${APP_WORKDIR}
     volumes:
-      - file_uploads:/app/hull_culture/tmp/uploads
+      - file_uploads:${UPLOADS_PATH}
+      - derivatives:${DERIVATIVES_PATH}
+      - cache:${CACHE_PATH}
       - /data:/data
-      - derivatives:/derivatives
     networks:
       internal:
 

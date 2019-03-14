@@ -1,16 +1,11 @@
 FROM ruby:2.6
 
 # Setup build variables
-ARG RAILS_ENV=production
-
-ENV RAILS_ENV="$RAILS_ENV" \
-    LANG=C.UTF-8 \
-    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre \
-    RAILS_LOG_TO_STDOUT=yes_please \
-    PATH=/fits/fits-1.0.5/:$PATH \
-    BUNDLE_JOBS=2 \
-    APP_PRODUCTION=/app/ \
-    APP_WORKDIR="/app/hull_culture"
+ARG APP_WORKDIR
+ARG RAILS_ENV
+ARG DERIVATIVES_PATH
+ARG UPLOADS_PATH
+ARG CACHE_PATH
 
 # Add backports to apt-get sources/
 # Install libraries, dependencies, java and fits
@@ -41,9 +36,11 @@ RUN mkdir -p /fits/ \
     && chmod a+x /fits/fits-1.0.5/fits.sh \
     && rm /fits/fits-1.0.5.zip
 
-# create a folder to store derivatives
-RUN mkdir -p /derivatives
-RUN mkdir -p /data
+
+# create a folder to store derivatives, file uploads and cache directory
+RUN mkdir -p $DERIVATIVES_PATH
+RUN mkdir -p $UPLOADS_PATH
+RUN mkdir -p $CACHE_PATH
 
 WORKDIR $APP_WORKDIR
 

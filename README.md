@@ -5,14 +5,6 @@ HyraxLeaf is the base Hyrax application used by the Research Technologies team
  * The environment variables used by docker when running the containers and by the rails application should be in file named .env
  * Copy the file .env.template to .env
 
-### Note
-The environment variables used by docker during build are hidden within the docker files. Some examples are
-  * Postgres username and password
-  * RAILS_ENV (set to production)
-  * Gem key (set to hull_culture)
-
-Until these are resolved to be all read from a single file, if you change these values, they also need to be changed in the docker files
-
 ## Install from docker
 Ensure you have docker and docker-compose. See [notes on installing docker](https://github.com/research-technologies/hull_synchronizer/wiki/Notes-on-installing-docker)
 
