@@ -2,10 +2,9 @@
 HyraxLeaf is the base Hyrax application used by the Research Technologies team
 
 ## Environment Variables
- * The environment variables are in two files .env and .env.production
- * Copy the file .env.production.example to .env.production
-These are used by docker when running the containers and by the rails application.
- 
+ * The environment variables used by docker when running the containers and by the rails application should be in file named .env
+ * Copy the file .env.template to .env
+
 ### Note
 The environment variables used by docker during build are hidden within the docker files. Some examples are
   * Postgres username and password

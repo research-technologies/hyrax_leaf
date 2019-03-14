@@ -56,8 +56,7 @@ services:
       - ${SOLR_CORE}
       - /opt/solr/solr_conf
 
-
-  db: 
+  db:
     image: postgres:11-alpine
     volumes:
       - db:/var/lib/postgresql/data
@@ -81,7 +80,6 @@ services:
     build: .
     env_file:
       - .env
-      - .env.production
     volumes:
       - file_uploads:/app/hull_culture/tmp/uploads
       - /data:/data
