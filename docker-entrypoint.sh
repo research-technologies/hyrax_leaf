@@ -1,10 +1,7 @@
 #!/bin/bash
 
-echo "Creating folders"
-mkdir -p $APP_WORKDIR/log
-mkdir -p $APP_WORKDIR/shared/pids
-mkdir -p $APP_WORKDIR/shared/log
-
+echo "Creating pids folders"
+mkdir -p $PIDS_PATH/sockets $PIDS_PATH/pids
 
 if [ "$RAILS_ENV" = "production" ]; then
     # Verify all the production gems are installed
@@ -14,7 +11,7 @@ else
     bundle check || bundle install --without production
 fi
 
-## Run any pending migrations
+# Run any pending migrations
 bundle exec rake db:migrate
 
 # wait for Solr and Fedora to come up
@@ -38,21 +35,28 @@ else
     # exit 1
 fi
 
-# generators will fail if db doesn't exist
-# if it doesn't, run:
-# rake db:create
 FLAG=""
 if [ ! -f $APP_WORKDIR/shared/.gem_installed ]; then
+    echo "Setting the initial flag"
     FLAG=" --initial"
     touch $APP_WORKDIR/shared/.gem_installed
 fi
-rails g $GEM_KEY:install $FLAG
 
-bundle exec rake assets:clean assets:precompile
-bundle exec rake hyrax:default_admin_set:create
-bundle exec rake hyrax:workflow:load
-bundle exec rake hyrax:default_collection_types:create
+# With the --initial flag, the install generator runs the setup rake tasks
+if [ -n "${GEM_KEY+set}" ]; then
+  echo "Running the installer"
+  bundle exec rails g $GEM_KEY:install $FLAG
+# If the GEM_KEY isn't set on the initial run; run the setup tasks
+elif [ ! -n "${GEM_KEY+set}" ] && [ "$FLAG" == "--initial" ] ; then
+  echo "Running the setup tasks"
+  bundle exec rake assets:clean assets:precompile
+  bundle exec rake hyrax:default_admin_set:create
+  bundle exec rake hyrax:workflow:load
+  bundle exec rake hyrax:default_collection_types:create
+else
+  echo "Check for new assets"
+  bundle exec rake assets:clean assets:precompile
+fi 
 
-# echo "--------- Starting Hyrax in $RAILS_ENV mode ---------"
-rm -f /tmp/hyrax.pid
-bundle exec rails server -p 3000 -b '0.0.0.0' --pid /tmp/hyrax.pid
+echo "--------- Starting Hyrax in $RAILS_ENV mode ---------"
+bundle exec rails server -p $RAILS_PORT -b '0.0.0.0' --pid $PIDS_PATH/pids/$APPLICATION_KEY.pid
