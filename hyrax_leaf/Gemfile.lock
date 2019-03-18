@@ -177,7 +177,7 @@ GEM
     devise-guests (0.6.1)
       devise
     diff-lcs (1.3)
-    dog_biscuits (0.5.3)
+    dog_biscuits (0.5.4)
       hyrax (>= 2, < 3)
     dropbox_api (0.1.12)
       faraday (~> 0.9, ~> 0.8)
