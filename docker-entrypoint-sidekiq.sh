@@ -11,10 +11,10 @@ else
     bundle check || bundle install --without production
 fi
 
-# Run the installer without any flag
+# Run the installer with --noprecompile
 if [ -n "${GEM_KEY+set}" ]; then
   echo "Running the installer"
-  bundle exec rails g $GEM_KEY:install
+  bundle exec rails g $GEM_KEY:install --noprecompile
 fi 
 
 echo "--------- Starting Sidekiq in $RAILS_ENV mode ---------"
