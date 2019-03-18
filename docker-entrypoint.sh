@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# @todo solr/fedora only need to be running for --initial
+# @todo think about supporting nogenerate
+
 echo "Creating pids folders"
 mkdir -p $PIDS_PATH/sockets $PIDS_PATH/pids
 
