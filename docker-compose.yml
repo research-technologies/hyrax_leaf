@@ -5,7 +5,7 @@ volumes:
   solr:
   db:
   redis:
-  file_uploads:
+  uploads:
   derivatives:
 
 networks:
@@ -22,8 +22,9 @@ services:
       - fcrepo:/data
     environment:
       CATALINA_OPTS: "-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC -Dfcrepo.object.directory=\"/data/objects\" -Dfcrepo.binary.directory=\"/data/binaries\""
-    depends_on:
-      - db
+    # @todo use database
+    # depends_on:
+    #   - db
     networks:
       internal:
 
@@ -77,46 +78,48 @@ services:
       - 5432:5432
 
   app: &app
-    build: .
+    build: 
+      context: .
+      args:
+        RAILS_ENV: ${RAILS_ENV}
+        UPLOADS_PATH: ${UPLOADS_PATH}
+        DERIVATIVES_PATH: ${DERIVATIVES_PATH}
+        CACHE_PATH: ${CACHE_PATH}
+        WORKING_PATH: ${WORKING_PATH}
+        APP_WORKDIR: ${APP_WORKDIR}
+        GEM_KEY: ${GEM_KEY}
+        GEM_SOURCE: ${GEM_SOURCE}
+        FITS_VERSION: ${FITS_VERSION}
     env_file:
       - .env
-    args:
-      RAILS_ENV: ${RAILS_ENV}
-      UPLOADS_PATH: ${UPLOADS_PATH}
-      DERIVATIVES_PATH: ${DERIVATIVES_PATH}
-      CACHE_PATH: ${CACHE_PATH}
-      APP_WORKDIR: ${APP_WORKDIR}
     volumes:
-      - file_uploads:${UPLOADS_PATH}
+      - uploads:${UPLOADS_PATH}
       - derivatives:${DERIVATIVES_PATH}
-      - cache:${CACHE_PATH}
-      - /data:/data
+    tmpfs:
+    - /${PIDS_PATH}
     networks:
       internal:
+    depends_on:
+      - db
+      - solr
+      - fcrepo
+      - redis
 
   web:
     <<: *app
-    command: bash -c "/bin/docker-entrypoint.sh"
-    depends_on:
-      - db
-      - solr
-      - fcrepo
-      - redis
+    entrypoint:
+        - /bin/docker-entrypoint-web.sh
     expose:
-      - 3000
+      - ${RAILS_PORT}
     ports:
-      - 3000:3000
+      - ${EXTERNAL_PORT}:${RAILS_PORT}
 
   workers:
     <<: *app
-    command: bundle exec sidekiq
+    entrypoint:
+        - /bin/docker-entrypoint-worker.sh
     environment:
-      - SETTINGS__FITS_PATH=/fits/fits-1.0.5/fits.sh
-    depends_on:
-      - db
-      - solr
-      - fcrepo
-      - redis
+      - SETTINGS__FITS_PATH=/fits/${FITS_VERSION}/fits.sh
 
   redis:
     image: redis:5

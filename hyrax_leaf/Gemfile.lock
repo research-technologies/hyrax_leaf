@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/leaf-research-technologies/leaf_addons.git
-  revision: f9e902ea02acb7ae394c970806e6b603e3d09e7f
+  revision: 3a848eb6bd18ed31ea241b5bc992e66a8066e87f
   specs:
     leaf_addons (0.1.0)
       hyrax (>= 2, < 3)
@@ -177,7 +177,7 @@ GEM
     devise-guests (0.6.1)
       devise
     diff-lcs (1.3)
-    dog_biscuits (0.5.1)
+    dog_biscuits (0.5.4)
       hyrax (>= 2, < 3)
     dropbox_api (0.1.12)
       faraday (~> 0.9, ~> 0.8)
@@ -844,4 +844,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.6

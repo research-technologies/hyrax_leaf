@@ -13,7 +13,15 @@ Hyrax.config do | config |
   config.derivatives_path = ENV.fetch('DERIVATIVES_PATH', File.join(Rails.root, 'tmp', 'derivatives'))
   config.working_path = ENV.fetch('WORKING_PATH', File.join(Rails.root, 'tmp', 'uploads'))
   config.branding_path = ENV.fetch('BRANDING_PATH', Rails.root.join('public', 'branding'))
-  config.fits_path = 'fits'
+  
+  fits_version = ENV.fetch('FITS_VERSION', 'fits-1.0.5')
+  config.fits_path = ENV['FITS_PATH'] || "/fits/#{fits_version}/fits.sh"
+  
+  # Emails
+  config.contact_email = ENV['CONTACT_FORM_RECIPIENT_EMAIL'] || "repo-admin@example.org"
+  config.subject_prefix = ENV['CONTACT_FORM_SUBJECT_PREFIX'] || "Contact form:"
+  # config.batch_user_key = 'batchuser@example.com'
+  # config.audit_user_key = 'batchuser@example.com'
   
   # Other config
   config.banner_image = ENV['BANNER'] if ENV['BANNER']

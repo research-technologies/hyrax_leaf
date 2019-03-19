@@ -49,17 +49,17 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 plugin :tmp_restart
 
 app_dir = File.expand_path("../..", __FILE__)
-shared_dir = "#{app_dir}/shared"
+pids_dir = ENV.fetch('PIDS_PATH', '/tmp')
 
 # Set up socket location
-bind "unix://#{shared_dir}/sockets/puma.sock"
+bind "unix://#{pids_dir}/sockets/puma.sock"
 
 # Logging
-# stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+# stdout_redirect "#{pids_dir}/log/puma.stdout.log", "#{pids_dir}/log/puma.stderr.log", true
 
 # Set master PID and state locations
-pidfile "#{shared_dir}/pids/puma.pid"
-state_path "#{shared_dir}/pids/puma.state"
+pidfile "#{pids_dir}/pids/puma.pid"
+state_path "#{pids_dir}/pids/puma.state"
 activate_control_app
 
 # Check database is running
