@@ -25,8 +25,8 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 50
-  database: <%= ENV['APPLICATION_KEY'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  host: <%= ENV['POSTGRES_HOST'] || 'db' %>
+  port: <%= ENV['POSTGRES_PORT'] || '5432' %>
+  username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] || 'password' %>
+  database: <%= ENV['POSTGRES_DB'] || 'hyrax_production' %>

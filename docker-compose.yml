@@ -1,0 +1,140 @@
+version: '3'
+
+volumes:
+  fcrepo:
+  solr:
+  db:
+  redis:
+  uploads:
+  derivatives:
+
+networks:
+  internal:
+
+services:
+  fcrepo:
+    image: ualbertalib/docker-fcrepo4:4.7
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    volumes:
+      - fcrepo:/data
+    environment:
+      CATALINA_OPTS: "-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC -Dfcrepo.object.directory=\"/data/objects\" -Dfcrepo.binary.directory=\"/data/binaries\""
+    # @todo use database
+    # depends_on:
+    #   - db
+    networks:
+      internal:
+
+  solr:
+    image: solr:7-alpine
+    expose:
+      - 8983
+    ports:
+      - 8983:8983
+    env_file:
+      - .env
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - "-O"
+        - "/dev/null"
+        - http://localhost:8983/solr/
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      internal:
+    volumes:
+      - solr:/opt/solr/server/solr/mycores
+      - ./solr/config:/opt/solr/solr_conf
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - ${SOLR_CORE}
+      - /opt/solr/solr_conf
+
+  db:
+    image: postgres:11-alpine
+    volumes:
+      - db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: "CMD echo 'SELECT 1' | POSTGRES_PASSWORD=${POSTGRES_PASSWORD} psql --host 127.0.0.1 --username #{POSTGRES_USER} --dbname #{POSTGRES_DB} --quiet --no-align --tuples-only"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      internal:
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+
+  app: &app
+    build: 
+      context: .
+      args:
+        RAILS_ENV: ${RAILS_ENV}
+        UPLOADS_PATH: ${UPLOADS_PATH}
+        DERIVATIVES_PATH: ${DERIVATIVES_PATH}
+        CACHE_PATH: ${CACHE_PATH}
+        WORKING_PATH: ${WORKING_PATH}
+        APP_WORKDIR: ${APP_WORKDIR}
+        GEM_KEY: ${GEM_KEY}
+        GEM_SOURCE: ${GEM_SOURCE}
+        FITS_VERSION: ${FITS_VERSION}
+    env_file:
+      - .env
+    volumes:
+      - uploads:${UPLOADS_PATH}
+      - derivatives:${DERIVATIVES_PATH}
+    tmpfs:
+    - /${PIDS_PATH}
+    networks:
+      internal:
+    depends_on:
+      - db
+      - solr
+      - fcrepo
+      - redis
+
+  web:
+    <<: *app
+    entrypoint:
+        - /bin/docker-entrypoint-web.sh
+    expose:
+      - ${RAILS_PORT}
+    ports:
+      - ${EXTERNAL_PORT}:${RAILS_PORT}
+
+  workers:
+    <<: *app
+    entrypoint:
+        - /bin/docker-entrypoint-worker.sh
+    environment:
+      - SETTINGS__FITS_PATH=/fits/${FITS_VERSION}/fits.sh
+
+  redis:
+    image: redis:5
+    command: redis-server --appendonly yes
+    volumes:
+      - redis:/data
+    expose:
+      - 6379
+    networks:
+      internal:
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 30s
+      timeout: 5s
+      retries: 3

@@ -1,3 +1,5 @@
+# NOTE: don't edit this file, override hyrax configs in config/initializers/hyrax_leaf.rb
+
 Hyrax.config do |config|
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.

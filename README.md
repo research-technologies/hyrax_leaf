@@ -1,18 +1,23 @@
-# README
+# hyrax_leaf
+HyraxLeaf is the base Hyrax application used by the Research Technologies team
 
-Core Hyrax repository maintained by the DART team. 
+## Environment Variables
+ * The environment variables used by docker when running the containers and by the rails application should be in file named .env
+ * Copy the file .env.template to .env
 
-Current version: v2.1.0.rc2
+## Install from docker
+Ensure you have docker and docker-compose. See [notes on installing docker](https://github.com/research-technologies/hull_synchronizer/wiki/Notes-on-installing-docker)
 
-Originally created with :
+To build and run the system in your local environment,
 
+Clone the repository and switch to the feature/docker_setup branch
 ```
-rails _5.1.4_ new hyrax-core -m https://raw.githubusercontent.com/samvera/hyrax/v2.1.0.beta1/template.rb
+git clone https://github.com/research-technologies/hyrax_leaf.git
 ```
 
-Includes:
+Issue the docker-compose `up` command:
+```bash
+$ docker-compose up --build
+```
 
-* Hydra Role Management (gem and generator)
-* Dog Biscuits (gem and generator)
-* Leaf Addons (gem)
-* Some configurations 
+You should see the rails app at localhost:3000
