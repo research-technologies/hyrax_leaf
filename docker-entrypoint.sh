@@ -5,11 +5,10 @@ echo "Running the base entrypoint"
 echo "Creating pids folders"
 mkdir -p $PIDS_PATH
 
-if [ "$RAILS_ENV" = "production" ]; then
+if [ "$RAILS_ENV" EQ "production" ]; then
+    echo 'Not doing it'
     # Verify all the production gems are installed
     bundle check
-    # Remove any unused gems
-    bundle clean --force
 else
     # install any missing development gems (as we can tweak the development container without rebuilding it)
     bundle check || bundle install --without production
