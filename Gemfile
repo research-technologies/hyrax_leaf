@@ -49,14 +49,13 @@ group :development, :test do
   gem 'easy_translate'
   gem 'fcrepo_wrapper'
   gem 'i18n-tasks'
-  gem 'easy_translate'
+  gem 'solr_wrapper', '>= 0.3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec-rails'
-  gem 'solr_wrapper', '>= 0.3'
 end
 
 gem 'devise'

@@ -11,7 +11,7 @@ if [ ! -f $APP_WORKDIR/shared/.gem_installed ]; then
 fi
 
 # Solr / Fedora need to be running for initial setup only
-if [ "$FLAG" = "--initial"]; then 
+if [ "$FLAG" = "--initial" ]; then 
     # wait for Solr and Fedora to come up
     sleep 15s
     
