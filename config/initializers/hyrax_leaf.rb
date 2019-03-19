@@ -13,10 +13,10 @@ Hyrax.config do | config |
   config.derivatives_path = ENV.fetch('DERIVATIVES_PATH', File.join(Rails.root, 'tmp', 'derivatives'))
   config.working_path = ENV.fetch('WORKING_PATH', File.join(Rails.root, 'tmp', 'uploads'))
   config.branding_path = ENV.fetch('BRANDING_PATH', Rails.root.join('public', 'branding'))
-  
   fits_version = ENV.fetch('FITS_VERSION', 'fits-1.0.5')
   config.fits_path = ENV['FITS_PATH'] || "/fits/#{fits_version}/fits.sh"
-  
+  config.libreoffice_path = ENV.fetch('LIBREOFFICE_PATH', 'soffice') 
+ 
   # Emails
   config.contact_email = ENV['CONTACT_FORM_RECIPIENT_EMAIL'] || "repo-admin@example.org"
   config.subject_prefix = ENV['CONTACT_FORM_SUBJECT_PREFIX'] || "Contact form:"

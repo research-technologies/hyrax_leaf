@@ -18,4 +18,4 @@ module Hydra::Derivatives
     autoload :ShellBasedProcessor
     autoload :Video
   end
-  end
+end
