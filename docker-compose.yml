@@ -50,7 +50,7 @@ services:
       internal:
     volumes:
       - solr:/opt/solr/server/solr/mycores
-      - ./solr/conf:/opt/solr/solr_conf
+      - ./solr/config:/opt/solr/solr_conf
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate

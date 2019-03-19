@@ -13,12 +13,13 @@ To build and run the system in your local environment,
 Clone the repository and switch to the feature/docker_setup branch
 ```
 git clone https://github.com/research-technologies/hyrax_leaf.git
-git fetch
-git checkout feature/dockerize
 ```
+
+Setup the environment variables in a file called `.env` following the `.env.template` template provided
 
 Issue the docker-compose `up` command:
 ```bash
 $ docker-compose up --build
 ```
+
 You should see the rails app at localhost:3000

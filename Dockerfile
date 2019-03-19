@@ -53,7 +53,7 @@ WORKDIR $APP_WORKDIR
 
 # Copy local hyrax leaf
 RUN mkdir app
-COPY hyrax_leaf $APP_WORKDIR
+COPY . $APP_WORKDIR
 
 COPY repo_builder.sh /bin/
 RUN chmod +x /bin/repo_builder.sh
