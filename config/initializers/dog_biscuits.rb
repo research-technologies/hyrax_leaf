@@ -23,7 +23,7 @@ DogBiscuits.config do |config|
   # config.authorities_add_new = []
 
   # Models to be used in the current application.
-  #   Available models are: ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package
+  #   Available models are: ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, Dataset, DigitalArchivalObject, ExamPaper, JournalArticle, Package, PublishedWork, Thesis ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package ConferenceItem, ExamPaper, JournalArticle, PublishedWork, Thesis, Dataset, Package
   #   Add values in constantized form, eg. 'ConferenceItem'
   # config.selected_models = []
 

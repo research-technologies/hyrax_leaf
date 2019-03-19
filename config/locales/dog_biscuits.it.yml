@@ -139,6 +139,7 @@ it:
         advisor: Consulente o supervisore di tesi.
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione o la città, lo stato o il paese in cui si trovano i contenuti del lavoro. Chiama il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         based_near_label: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione o la città, lo stato o il paese in cui si trovano i contenuti del lavoro. Chiama il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
+        content_version: La versione del file, ad es. Manoscritto originale o accettato dell'autore.
         contributor: Una persona o un gruppo che desideri riconoscere per avere un ruolo nella creazione del lavoro, ma non il ruolo principale.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. & quot; Smith, John. & quot ;.
         date: Una data per il lavoro.

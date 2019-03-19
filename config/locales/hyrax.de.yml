@@ -1,9 +1,5 @@
 ---
 de:
-  blacklight:
-    search:
-      fields:
-        show: 
   hyrax:
     account_name: Meine Institution Konto-ID
     directory:
