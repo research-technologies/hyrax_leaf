@@ -47,7 +47,7 @@ RUN mkdir -p $CACHE_PATH
 RUN mkdir -p $WORKING_PATH
 
 # Create shared directory - required by docker
-RUN mkdir -p $APP_WORKDIR/shared
+RUN mkdir -p $APP_WORKDIR/shared/state
 
 WORKDIR $APP_WORKDIR
 
@@ -55,11 +55,15 @@ WORKDIR $APP_WORKDIR
 RUN mkdir app
 COPY . $APP_WORKDIR
 
+# Install the gem
 COPY repo_builder.sh /bin/
 RUN chmod +x /bin/repo_builder.sh
 RUN /bin/repo_builder.sh
 
 RUN if [ "$RAILS_ENV" = "production" ]; then bundle install --without development test; else bundle install; fi
+
+# Run the gem installer
+RUN if [ -n "${GEM_KEY+set}" ]; then bundle exec rails g $GEM_KEY:install ; fi
 
 COPY docker-entrypoint.sh /bin/
 RUN chmod +x /bin/docker-entrypoint.sh

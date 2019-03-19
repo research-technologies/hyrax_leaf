@@ -7,6 +7,7 @@ volumes:
   redis:
   uploads:
   derivatives:
+  state:
 
 networks:
   internal:
@@ -95,6 +96,7 @@ services:
     volumes:
       - uploads:${UPLOADS_PATH}
       - derivatives:${DERIVATIVES_PATH}
+      - state:$APP_WORKDIR/shared/state
     tmpfs:
     - /${PIDS_PATH}
     networks:
