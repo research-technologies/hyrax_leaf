@@ -57,13 +57,15 @@ COPY hyrax_leaf $APP_WORKDIR
 
 COPY repo_builder.sh /bin/
 RUN chmod +x /bin/repo_builder.sh
-RUN /bin/repo_builder.sh -gemkey $GEM_KEY -gemsrc $GEM_SOURCE
+RUN /bin/repo_builder.sh
 
-RUN bundle install --without development test
-RUN bundle clean --force
+RUN if [ "$RAILS_ENV" = "production" ]; then bundle install --without development test; else bundle install; fi
 
 COPY docker-entrypoint.sh /bin/
 RUN chmod +x /bin/docker-entrypoint.sh
 
-COPY docker-entrypoint-sidekiq.sh /bin/
-RUN chmod +x /bin/docker-entrypoint-sidekiq.sh
+COPY docker-entrypoint-web.sh /bin/
+RUN chmod +x /bin/docker-entrypoint-web.sh
+
+COPY docker-entrypoint-worker.sh /bin/
+RUN chmod +x /bin/docker-entrypoint-worker.sh

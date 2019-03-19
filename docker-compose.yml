@@ -95,20 +95,20 @@ services:
     volumes:
       - uploads:${UPLOADS_PATH}
       - derivatives:${DERIVATIVES_PATH}
-      # - /data:/data
     tmpfs:
     - /${PIDS_PATH}
     networks:
       internal:
-
-  web:
-    <<: *app
-    command: bash -c "/bin/docker-entrypoint.sh"
     depends_on:
       - db
       - solr
       - fcrepo
       - redis
+
+  web:
+    <<: *app
+    entrypoint:
+        - /bin/docker-entrypoint-web.sh
     expose:
       - ${RAILS_PORT}
     ports:
@@ -116,14 +116,10 @@ services:
 
   workers:
     <<: *app
-    command: bash -c "/bin/docker-entrypoint-sidekiq.sh"
+    entrypoint:
+        - /bin/docker-entrypoint-worker.sh
     environment:
       - SETTINGS__FITS_PATH=/fits/${FITS_VERSION}/fits.sh
-    depends_on:
-      - db
-      - solr
-      - fcrepo
-      - redis
 
   redis:
     image: redis:5
