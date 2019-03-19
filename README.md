@@ -15,8 +15,6 @@ Clone the repository and switch to the feature/docker_setup branch
 git clone https://github.com/research-technologies/hyrax_leaf.git
 ```
 
-Setup the environment variables in a file called `.env` following the `.env.template` template provided
-
 Issue the docker-compose `up` command:
 ```bash
 $ docker-compose up --build

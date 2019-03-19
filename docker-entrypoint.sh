@@ -3,7 +3,7 @@
 echo "Running the base entrypoint"
 
 echo "Creating pids folders"
-mkdir -p $PIDS_PATH/sockets $PIDS_PATH/pids
+mkdir -p $PIDS_PATH
 
 if [ "$RAILS_ENV" = "production" ]; then
     # Verify all the production gems are installed

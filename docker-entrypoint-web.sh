@@ -51,4 +51,4 @@ else
 fi 
 
 echo "--------- Starting Hyrax in $RAILS_ENV mode ---------"
-bundle exec rails server -p $RAILS_PORT -b '0.0.0.0' --pid $PIDS_PATH/pids/$APPLICATION_KEY.pid
+bundle exec rails server -p $RAILS_PORT -b '0.0.0.0' --pid $PIDS_PATH/$APPLICATION_KEY.pid
