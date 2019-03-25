@@ -54,8 +54,11 @@ pids_dir = ENV.fetch('PIDS_PATH', '/tmp')
 # Set up socket location
 bind "unix://#{pids_dir}/puma.sock"
 
-# Logging
-# stdout_redirect "#{pids_dir}/log/puma.stdout.log", "#{pids_dir}/log/puma.stderr.log", true
+# Logging - 
+# stdout_redirect "/var/log/puma.stdout.log", "#{pids_dir}/log/puma.stderr.log", true
+
+# Daemonize
+# daemonize true
 
 # Set master PID and state locations
 pidfile "#{pids_dir}/puma.pid"
