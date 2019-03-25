@@ -55,7 +55,8 @@ pids_dir = ENV.fetch('PIDS_PATH', '/tmp')
 bind "unix://#{pids_dir}/puma.sock"
 
 # Logging - 
-# stdout_redirect "/var/log/puma.stdout.log", "#{pids_dir}/log/puma.stderr.log", true
+# logs_dir = File.join(ENV.fetch('LOGS_PATH', 'log'), ENV.fetch('APPLICATION_KEY', ''))
+# stdout_redirect "#{logs_dir}/puma.stdout.log", "#{logs_dir}/puma.stderr.log", true
 
 # Daemonize
 # daemonize true
