@@ -3,6 +3,15 @@
 # Run the base entrypoint
 bash /bin/docker-entrypoint.sh
 
+# Run any pending migrations
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake assets:precompile
+
+if [ ! -d $DERIVATIVES_PATH ]; then
+  mkdir -p $DERIVATIVES_PATH $UPLOADS_PATH $CACHE_PATH $WORKING_PATH $BRANDING_PATH
+fi
+
 # Run the initialization tasks on first run
 
 FLAG=""
@@ -30,7 +39,7 @@ if [ "$FLAG" = "initialize" ]; then
   fi
   
   # check that Fedora is running
-  FEDORA=$(curl --silent --connect-timeout 45 "http://${FEDORA_HOST:-fcrepo}:${FEDORA_PORT:-8080}/fcrepo/" | grep "Fedora Commons Repository")
+  FEDORA=$(curl --silent --connect-timeout 45 "http://${FCREPO_HOST:-fcrepo}:${FCREPO_PORT:-8080}/fcrepo/" | grep "Fedora Commons Repository")
   if [ -n "$FEDORA" ] ; then
       echo "Fedora is running..."
   else
@@ -42,7 +51,7 @@ if [ "$FLAG" = "initialize" ]; then
     echo "Running the installer"
     bundle exec rails g $GEM_KEY:initialize
   # If the GEM_KEY isn't set on the initial run; run the setup tasks
-  elif [ ! -n "${GEM_KEY+set}" ] && [ "$FLAG" == "--initial" ] ; then
+  elif [ ! -n "${GEM_KEY+set}" ]; then
     echo "Running the initialization tasks"
     bundle exec rake assets:clean assets:precompile
     bundle exec rake hyrax:default_admin_set:create

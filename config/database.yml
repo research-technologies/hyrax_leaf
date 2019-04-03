@@ -29,4 +29,4 @@ production:
   port: <%= ENV['POSTGRES_PORT'] || '5432' %>
   username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
   password: <%= ENV['POSTGRES_PASSWORD'] || 'password' %>
-  database: <%= ENV['POSTGRES_DB'] || 'hyrax_production' %>
+  database: <%= ENV['HYRAX_DB'] || 'hyrax_production' %>

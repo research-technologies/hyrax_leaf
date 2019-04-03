@@ -5,14 +5,11 @@ echo "Running the base entrypoint"
 echo "Creating pids folders"
 mkdir -p $PIDS_PATH
 
-if [ "$RAILS_ENV" EQ "production" ]; then
-    echo 'Not doing it'
+if [[ "$RAILS_ENV" == "production" ]]; then
+    echo 'RAILS_ENV is production, running bundle check'
     # Verify all the production gems are installed
     bundle check
 else
-    # install any missing development gems (as we can tweak the development container without rebuilding it)
+    echo 'RAILS_ENV is not production, installing dev and test dependencies'
     bundle check || bundle install --without production
 fi
-
-# Run any pending migrations
-bundle exec rake db:migrate
