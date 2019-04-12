@@ -25,7 +25,7 @@ if [ ! -f $APP_WORKDIR/shared/state/.initialized ]; then
 fi
 
 # Solr / Fedora need to be running for initial setup only
-if [ "$FLAG" = "initialize" ]; then 
+if [ "$FLAG" == "initialize" ]; then 
   # wait for Solr and Fedora to come up
   sleep 15s
   
@@ -39,7 +39,7 @@ if [ "$FLAG" = "initialize" ]; then
   fi
   
   # check that Fedora is running
-  FEDORA=$(curl --silent --connect-timeout 45 "http://${FCREPO_HOST:-fcrepo}:${FCREPO_PORT:-8080}/fcrepo/" | grep "Fedora Commons Repository")
+  FEDORA=$(curl --silent --connect-timeout 45 "http://${FEDORA_HOST:-fcrepo}:${FEDORA_PORT:-8080}/fcrepo/" | grep "Fedora Commons Repository")
   if [ -n "$FEDORA" ] ; then
       echo "Fedora is running..."
   else
