@@ -4,6 +4,7 @@ FROM ruby:2.6
 ARG APP_WORKDIR
 ARG RAILS_ENV
 ARG DERIVATIVES_PATH
+ARG BRANDING_PATH
 ARG UPLOADS_PATH
 ARG CACHE_PATH
 ARG WORKING_PATH
@@ -11,10 +12,8 @@ ARG GEM_KEY
 ARG GEM_SOURCE
 ARG FITS_VERSION
 
-# Add backports to apt-get sources/
 # Install libraries, dependencies and java
-RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list \
-    && apt-get update -qq \
+RUN apt-get update -qq \
     && apt-get install -y --no-install-recommends \
     libpq-dev \
     libxml2-dev libxslt1-dev \
@@ -26,12 +25,8 @@ RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sou
     ufraw \
     bzip2 unzip xz-utils \
     vim \
-    git \
-    # install open-jdk and ca-certs from jessie-backports
-    && apt-get install -t jessie-backports -y --no-install-recommends openjdk-8-jre-headless ca-certificates-java \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && /var/lib/dpkg/info/ca-certificates-java.postinst configure
+    git \ 
+    openjdk-8-jre-headless
 
 # Install fits
 RUN mkdir -p /fits/ \
@@ -45,6 +40,8 @@ RUN mkdir -p $DERIVATIVES_PATH
 RUN mkdir -p $UPLOADS_PATH
 RUN mkdir -p $CACHE_PATH
 RUN mkdir -p $WORKING_PATH
+RUN mkdir -p $BRANDING_PATH
+RUN mkdir -p $APP_WORKDIR/log
 
 # Create shared directory - required by docker
 RUN mkdir -p $APP_WORKDIR/shared/state

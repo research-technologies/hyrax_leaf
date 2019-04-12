@@ -23,3 +23,12 @@
 .byebug_history
 
 local_dev_reset.sh
+
+# terraform
+terraform/.terraform/*
+*.tfvars
+*.tfstate
+*.tfstate*
+*.tfplan
+terraform/config.json
+terraform/create_copy_script.rb

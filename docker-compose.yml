@@ -3,7 +3,7 @@ version: '3'
 volumes:
   fcrepo:
   solr:
-  db:
+  postgresdb:
   redis:
   uploads:
   derivatives:
@@ -21,11 +21,10 @@ services:
       - 8080:8080
     volumes:
       - fcrepo:/data
-    environment:
-      CATALINA_OPTS: "-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC -Dfcrepo.object.directory=\"/data/objects\" -Dfcrepo.binary.directory=\"/data/binaries\""
-    # @todo use database
-    # depends_on:
-    #   - db
+    env_file:
+      - .env
+    depends_on:
+       - postgresdb
     networks:
       internal:
 
@@ -58,19 +57,21 @@ services:
       - ${SOLR_CORE}
       - /opt/solr/solr_conf
 
-  db:
+  postgresdb:
     image: postgres:11-alpine
     volumes:
-      - db:/var/lib/postgresql/data
+      - postgresdb:/var/lib/postgresql/data
     env_file:
       - .env
+    environment:
+      - POSTGRES_DB=${FCREPO_DB}
     healthcheck:
       test: "CMD echo 'SELECT 1' | POSTGRES_PASSWORD=${POSTGRES_PASSWORD} psql --host 127.0.0.1 --username #{POSTGRES_USER} --dbname #{POSTGRES_DB} --quiet --no-align --tuples-only"
       interval: 30s
       timeout: 5s
       retries: 3
     volumes:
-      - db:/var/lib/postgresql/data
+      - postgresdb:/var/lib/postgresql/data
     networks:
       internal:
     expose:
@@ -87,6 +88,7 @@ services:
         DERIVATIVES_PATH: ${DERIVATIVES_PATH}
         CACHE_PATH: ${CACHE_PATH}
         WORKING_PATH: ${WORKING_PATH}
+        BRANDING_PATH: ${BRANDING_PATH}
         APP_WORKDIR: ${APP_WORKDIR}
         GEM_KEY: ${GEM_KEY}
         GEM_SOURCE: ${GEM_SOURCE}
@@ -102,7 +104,7 @@ services:
     networks:
       internal:
     depends_on:
-      - db
+      - postgresdb
       - solr
       - fcrepo
       - redis
@@ -120,8 +122,6 @@ services:
     <<: *app
     entrypoint:
         - /bin/docker-entrypoint-worker.sh
-    environment:
-      - SETTINGS__FITS_PATH=/fits/${FITS_VERSION}/fits.sh
 
   redis:
     image: redis:5

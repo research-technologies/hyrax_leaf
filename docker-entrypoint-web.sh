@@ -3,6 +3,15 @@
 # Run the base entrypoint
 bash /bin/docker-entrypoint.sh
 
+# Run any pending migrations
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake assets:precompile
+
+if [ ! -d $DERIVATIVES_PATH ]; then
+  mkdir -p $DERIVATIVES_PATH $UPLOADS_PATH $CACHE_PATH $WORKING_PATH $BRANDING_PATH
+fi
+
 # Run the initialization tasks on first run
 
 FLAG=""
@@ -16,7 +25,7 @@ if [ ! -f $APP_WORKDIR/shared/state/.initialized ]; then
 fi
 
 # Solr / Fedora need to be running for initial setup only
-if [ "$FLAG" = "initialize" ]; then 
+if [ "$FLAG" == "initialize" ]; then 
   # wait for Solr and Fedora to come up
   sleep 15s
   
@@ -42,7 +51,7 @@ if [ "$FLAG" = "initialize" ]; then
     echo "Running the installer"
     bundle exec rails g $GEM_KEY:initialize
   # If the GEM_KEY isn't set on the initial run; run the setup tasks
-  elif [ ! -n "${GEM_KEY+set}" ] && [ "$FLAG" == "--initial" ] ; then
+  elif [ ! -n "${GEM_KEY+set}" ]; then
     echo "Running the initialization tasks"
     bundle exec rake assets:clean assets:precompile
     bundle exec rake hyrax:default_admin_set:create
