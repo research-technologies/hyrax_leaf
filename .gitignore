@@ -24,6 +24,10 @@
 
 local_dev_reset.sh
 
+# Env
+.rbenv-vars
+.env
+
 # terraform
 terraform/.terraform/*
 *.tfvars

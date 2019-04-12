@@ -73,7 +73,7 @@ Rails.application.configure do
     logger = ActiveSupport::Logger.new(STDOUT)
   elsif ENV['LOGS_PATH'].present?
     log_dir = File.join(ENV['LOGS_PATH'], ENV.fetch('APPLICATION_KEY', ''))
-    logger = ActiveSupport::Logger.new(File.join(log_dir, "#{ENV.fetch('APPLICATION_KEY', 'prod')}_#{ENV['RAILS_ENV']}.log"))
+    logger = ActiveSupport::Logger.new(File.join(log_dir, "#{ENV.fetch('APPLICATION_KEY', '')}_#{ENV['RAILS_ENV']}.log"))
   else
     logger = ActiveSupport::Logger.new('log/production.log')
   end
@@ -111,14 +111,16 @@ Rails.application.configure do
 
   # TODO: proper mailer setup
   config.action_mailer.perform_deliveries = true
+  # doesn't work with gmail
+  config.action_mailer.default_options = {from: ENV.fetch('FROM_EMAIL', 'no-reply@london.ac.uk') }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    address:              ENV.fetch('SMTP_ADDRESS', 'smtp.gmail.com'),
     port:                 587,
-    domain:               'gmail.com',
+    domain:               ENV.fetch('SMTP_DOMAIN', 'gmail.com'),
     user_name:            ENV.fetch('SMTP_EMAIL', ''),
     password:             ENV.fetch('SMTP_PASSWORD', ''),
-    authentication:       'plain',
+    authentication:       ENV.fetch('SMTP_AUTH', 'plain'),
     enable_starttls_auto: true
   }
 end
