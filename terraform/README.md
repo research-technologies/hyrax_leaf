@@ -35,10 +35,12 @@ terraform plan
 terraform apply
 ```
 
-A suggested convention is to write the plan and state files to a location outside the repo, eg.
+A suggested convention is to write the plan to a location outside the repo,
 
 ```
 terraform init
 terraform plan -out /some_dir/myapp.tfplan
-terraform apply "/some_dir/myapp.tfplan" -state /some_dir/myapp.tfstate
+ 
+terraform apply "/some_dir/myapp.tfplan"
+
 ```

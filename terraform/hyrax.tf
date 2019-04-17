@@ -16,6 +16,7 @@ data "template_file" "build_script" {
 resource "local_file" "build" {
   content = "${data.template_file.build_script.rendered}"
   filename = "docker_build.rb"
+  
   # Build (if do_build is set to true), tag and push the docker images
   # @todo ensure this completes before the containers pushed / deployed
   provisioner "local-exec" "build" {
@@ -59,7 +60,8 @@ module "kubernetes_hyrax" {
   secondary_mount_path = "/app/shared/state"
   secondary_sub_path = "state"
   pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
-  port = 3000
+  # replicas = 1
+  port = 80
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
   command = ["/bin/bash","-ce", "/bin/docker-entrypoint-web.sh"]
@@ -87,6 +89,7 @@ module "kubernetes_sidekiq" {
   secondary_sub_path = "state"
   pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
   port = 3001
+  # replicas = 0
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
   command = ["/bin/bash","-ce", "/bin/docker-entrypoint-worker.sh"]

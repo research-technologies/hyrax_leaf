@@ -22,8 +22,6 @@
 
 .byebug_history
 
-local_dev_reset.sh
-
 # Env
 .rbenv-vars
 .env
@@ -36,3 +34,7 @@ terraform/.terraform/*
 *.tfplan
 terraform/config.json
 terraform/create_copy_script.rb
+
+# Keys
+*id_rsa
+id_rsa

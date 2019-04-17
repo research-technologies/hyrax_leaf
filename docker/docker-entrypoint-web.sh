@@ -6,6 +6,7 @@ bash /bin/docker-entrypoint.sh
 # Run any pending migrations
 bundle exec rake db:create
 bundle exec rake db:migrate
+echo "Running rake assets:precompile ... "
 bundle exec rake assets:precompile
 
 if [ ! -d $DERIVATIVES_PATH ]; then

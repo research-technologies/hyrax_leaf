@@ -93,6 +93,7 @@ services:
         GEM_KEY: ${GEM_KEY}
         GEM_SOURCE: ${GEM_SOURCE}
         FITS_VERSION: ${FITS_VERSION}
+        SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY}
     env_file:
       - .env
     volumes:
