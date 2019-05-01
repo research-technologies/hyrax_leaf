@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/leaf-research-technologies/leaf_addons.git
-  revision: de64e5fd9d0dca0aa0f20eb391cdb20c922accdd
+  revision: b48de9590a631efd7555d5d063cb0afd958310b2
   specs:
     leaf_addons (0.1.0)
       hyrax (>= 2, < 3)

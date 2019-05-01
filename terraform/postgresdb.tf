@@ -12,7 +12,7 @@ module "kubernetes_postgres" {
   docker_image = "postgres:11-alpine"
   app_name = "postgresdb"
   
-  primary_mount_path = "/var/lib/postgresql"
+  primary_mount_path = "/var/lib/postgresql/data"
   secondary_mount_path = "/data"
   secondary_sub_path = ""
   pvc_claim_name = "${module.kubernetes_pvc_postgresdb.pvc_claim_name}"
