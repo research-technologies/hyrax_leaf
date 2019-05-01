@@ -57,8 +57,8 @@ module "kubernetes_hyrax" {
   docker_image = "${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_web:latest"
   app_name = "hyrax"
   primary_mount_path = "/data"
-  secondary_mount_path = "/app/shared/state"
-  secondary_sub_path = "state"
+  secondary_mount_path = "/app/shared"
+  secondary_sub_path = "shared"
   pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
   # replicas = 1
   port = 80
@@ -67,7 +67,7 @@ module "kubernetes_hyrax" {
   command = ["/bin/bash","-ce", "/bin/docker-entrypoint-web.sh"]
   # Creates a dependency on fcrepo, solr and redis
   resource_version = ["${module.kubernetes_fcrepo.service_resource_version}","${module.kubernetes_fcrepo.deployment_resource_version}","${module.kubernetes_solr.deployment_resource_version}","${module.kubernetes_solr.service_resource_version}",  "${module.kubernetes_redis.deployment_resource_version}","${module.kubernetes_redis.service_resource_version}"]
-
+  load_balancer_source_ranges = "${var.user_access}"
 }
 
 # Sidekiq
@@ -85,8 +85,8 @@ module "kubernetes_sidekiq" {
   docker_image = "${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_web:latest"
   app_name = "sidekiq"
   primary_mount_path = "/data"
-  secondary_mount_path = "/app/shared/state"
-  secondary_sub_path = "state"
+  secondary_mount_path = "/app/shared"
+  secondary_sub_path = "shared"
   pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
   port = 3001
   # replicas = 0
@@ -95,6 +95,7 @@ module "kubernetes_sidekiq" {
   command = ["/bin/bash","-ce", "/bin/docker-entrypoint-worker.sh"]
   # Creates a dependency on fcrepo, solr and redis
   resource_version = ["${module.kubernetes_fcrepo.service_resource_version}","${module.kubernetes_fcrepo.deployment_resource_version}","${module.kubernetes_solr.deployment_resource_version}","${module.kubernetes_solr.service_resource_version}",  "${module.kubernetes_redis.deployment_resource_version}","${module.kubernetes_redis.service_resource_version}"]
+  load_balancer_source_ranges = "${var.developer_access}"
 }
 
 module "kubernetes_pvc_hyrax" {

@@ -38,3 +38,11 @@ variable "agent_count" {
 variable "disk_size_gb" {
   default = 30
 }
+
+variable "developer_access" {
+  type = "list"
+}
+
+variable "user_access" {
+  type = "list"
+}

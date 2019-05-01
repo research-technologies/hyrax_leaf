@@ -35,6 +35,7 @@ module "kubernetes_solr" {
   secondary_mount_path = "/data"
   secondary_sub_path = "solr_config"
   pvc_claim_name = "${module.kubernetes_pvc_solr.pvc_claim_name}"
+  load_balancer_source_ranges = "${var.developer_access}"
   
   port = 8983
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"

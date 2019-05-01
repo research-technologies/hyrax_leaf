@@ -12,10 +12,11 @@ module "kubernetes_postgres" {
   docker_image = "postgres:11-alpine"
   app_name = "postgresdb"
   
-  primary_mount_path = "/var/lib/postgresql/data"
-  secondary_mount_path = "/data"
-  secondary_sub_path = ""
+  primary_mount_path = "/var/lib/postgresql/data" # DO NOT CHANGE; ENSURE PGDATA is set in .env
+  secondary_mount_path = "/data" # this isn't used or needed
+  secondary_sub_path = "unused"
   pvc_claim_name = "${module.kubernetes_pvc_postgresdb.pvc_claim_name}"
+  load_balancer_source_ranges = "${var.developer_access}"
   
   port = 5432
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"

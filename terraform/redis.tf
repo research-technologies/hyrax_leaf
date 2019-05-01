@@ -12,9 +12,10 @@ module "kubernetes_redis" {
   docker_image = "redis:5"
   app_name = "redis"
   primary_mount_path = "/data"
-  secondary_mount_path = "/redis"
-  secondary_sub_path = ""
+  secondary_mount_path = "/opt" # this isn't used or needed
+  secondary_sub_path = "unused"
   pvc_claim_name = "${module.kubernetes_pvc_redis.pvc_claim_name}"
+  load_balancer_source_ranges = "${var.developer_access}"
 
   port = 6379
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"

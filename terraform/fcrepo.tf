@@ -11,12 +11,13 @@ module "kubernetes_fcrepo" {
   docker_image = "ualbertalib/docker-fcrepo4" # or nulib/fcrepo4"
   app_name = "fcrepo"
   primary_mount_path = "/data"
-  secondary_mount_path = "/fcrepo"
-  secondary_sub_path = "fcrepoconfig"
-  pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
+  secondary_mount_path = "/fcrepo" # currently unused, but could be
+  secondary_sub_path = "fcrepo_config"
+  pvc_claim_name = "${module.kubernetes_pvc_fcrepo.pvc_claim_name}"
   port = 8080
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
+  load_balancer_source_ranges = "${var.developer_access}"
 
   # Creates a dependency on postgres
   resource_version = ["${module.kubernetes_postgres.service_resource_version}","${module.kubernetes_postgres.deployment_resource_version}"]
