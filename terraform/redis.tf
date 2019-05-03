@@ -15,7 +15,8 @@ module "kubernetes_redis" {
   secondary_mount_path = "/opt" # this isn't used or needed
   secondary_sub_path = "unused"
   pvc_claim_name = "${module.kubernetes_pvc_redis.pvc_claim_name}"
-  load_balancer_source_ranges = "${var.developer_access}"
+  # load_balancer_source_ranges = "${var.developer_access}"
+  service_type = "ClusterIP"
 
   port = 6379
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"

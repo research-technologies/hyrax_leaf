@@ -46,3 +46,6 @@ variable "developer_access" {
 variable "user_access" {
   type = "list"
 }
+
+variable "zone_name" { }
+variable "zone_resource_group" { }

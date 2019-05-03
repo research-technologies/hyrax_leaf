@@ -36,6 +36,7 @@ module "kubernetes_solr" {
   secondary_sub_path = "solr_config"
   pvc_claim_name = "${module.kubernetes_pvc_solr.pvc_claim_name}"
   load_balancer_source_ranges = "${var.developer_access}"
+  load_balancer_ip = "${module.terraform_azure_public_ip_solr.public_ip}"
   
   port = 8983
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
@@ -43,6 +44,31 @@ module "kubernetes_solr" {
   
   command = ["/bin/bash","-ce", "docker-entrypoint.sh && solr-precreate $${SOLR_CORE} /data"]
 
+}
+
+# Public IP
+module "terraform_azure_public_ip_solr" {
+  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=master"
+  
+  # Required - add to terraform.tvars
+  subscription_id = "${var.subscription_id}"
+  tenant_id = "${var.tenant_id}"
+  client_id = "${var.client_id}"
+  client_secret = "${var.client_secret}"
+  owner = "${var.owner}"
+  name = "${var.name}"
+  
+  location = "${var.location}"
+  resource_group = "${module.azure_kubernetes.azure_cluster_node_resource_group}"
+  service_name = "solr"
+  
+  # Labels
+  environment = "${var.environment}"
+  namespace-org = "${var.namespace-org}"
+  org = "${var.org}"
+  service = "${var.service}"
+  product = "${var.product}"
+  team = "${var.team}"
 }
 
 

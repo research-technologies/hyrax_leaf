@@ -73,5 +73,4 @@ module "kubernetes_storage" {
   client_certificate = "${module.azure_kubernetes.client_certificate}"
   client_key = "${module.azure_kubernetes.client_key}"
   cluster_ca_certificate = "${module.azure_kubernetes.cluster_ca_certificate}"
-  
 }

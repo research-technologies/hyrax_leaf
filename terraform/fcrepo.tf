@@ -18,9 +18,35 @@ module "kubernetes_fcrepo" {
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
   load_balancer_source_ranges = "${var.developer_access}"
+  load_balancer_ip = "${module.terraform_azure_public_ip_fcrepo.public_ip}"
 
   # Creates a dependency on postgres
   resource_version = ["${module.kubernetes_postgres.service_resource_version}","${module.kubernetes_postgres.deployment_resource_version}"]
+}
+
+# Public IP
+module "terraform_azure_public_ip_fcrepo" {
+  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=master"
+  
+  # Required - add to terraform.tvars
+  subscription_id = "${var.subscription_id}"
+  tenant_id = "${var.tenant_id}"
+  client_id = "${var.client_id}"
+  client_secret = "${var.client_secret}"
+  owner = "${var.owner}"
+  name = "${var.name}"
+  
+  location = "${var.location}"
+  resource_group = "${module.azure_kubernetes.azure_cluster_node_resource_group}"
+  service_name = "fcrepo"
+  
+  # Labels
+  environment = "${var.environment}"
+  namespace-org = "${var.namespace-org}"
+  org = "${var.org}"
+  service = "${var.service}"
+  product = "${var.product}"
+  team = "${var.team}"
 }
 
 module "kubernetes_pvc_fcrepo" {
