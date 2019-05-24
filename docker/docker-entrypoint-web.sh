@@ -16,6 +16,7 @@ FLAG=""
 if [ ! -f $APP_WORKDIR/shared/state/.initialized ]; then
     echo "Setting the initial flag"
     FLAG="initialize"
+    mkdir $APP_WORKDIR/shared/state
     touch $APP_WORKDIR/shared/state/.initialized
 fi
 

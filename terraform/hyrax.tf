@@ -72,7 +72,7 @@ module "kubernetes_hyrax" {
 }
 
 # A Record
-# Ideally, provide alias?
+
 module "terraform_azure_dns_arecord_hyrax" {
   source = "git::https://github.com/anarchist-raccoons/terraform_azure_dns_arecord.git?ref=master"
   
