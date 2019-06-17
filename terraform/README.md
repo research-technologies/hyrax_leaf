@@ -16,7 +16,7 @@ This is a terraform build to deploy hyrax_leaf leaf to an Azure Kubernetes Servi
 
 (relative to terraform/)
 
-* `terraform.tfvars` (see `terraform.tfvars.template`)
+* create `terraform.tfvars` (see `terraform.tfvars.template`) OR (see convention below ../../terraform_builds/myapp/terraform.tfvars)
 * create file `config.json` with {} as the contents - this will be overwritten with docker auth, but must not be committed to github
 * Env file at `../.env` (see `../.env.template`)
 * Solr config files at ../solr/config 
@@ -37,14 +37,21 @@ terraform plan
 terraform apply
 ```
 
-A suggested convention is to write the plan to a location outside the repo,
+A suggested convention is to have a location outside of the GH repo for the tfvars, plan and state and set the locations at plan/apply time.
+
+@todo remote state to share plans and state
 
 ```
+# install modules (first time only); add --update to update modules
 terraform init
-terraform plan -out /lovely_plans/myapp.tfplan
- 
-terraform apply "/lovely_plans/myapp.tfplan"
 
+# create
+terraform plan -var-file=../../terraform_builds/test/test.tfvars -out=../../terraform_builds/test/test.tfplan -state=../../terraform_builds/test/terraform.tfstate
+terraform apply -state-out=../../terraform_builds/test/terraform.tfstate ../../terraform_builds/test/test.tfplan" 
+
+# destroy
+terraform plan  -destroy -var-file=../../terraform_builds/test/test.tfvars -out=../../terraform_builds/test/test.tfplan -state=../../terraform_builds/test/terraform.tfstate
+terraform apply -state-out=../../terraform_builds/test/terraform.tfstate ../../terraform_builds/test/test.tfplan"
 ```
 
 ## Automatic Stop|Start of the Kubernetes VM

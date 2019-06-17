@@ -64,7 +64,7 @@ module "kubernetes_hyrax" {
   port = 80
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
-  command = ["/bin/bash","-ce", "/bin/docker-entrypoint-web.sh"]
+  command = ["/bin/bash","-ce", "/bin/docker-entrypoint.sh"]
   # Creates a dependency on fcrepo, solr and redis
   resource_version = ["${module.kubernetes_fcrepo.service_resource_version}","${module.kubernetes_fcrepo.deployment_resource_version}","${module.kubernetes_solr.deployment_resource_version}","${module.kubernetes_solr.service_resource_version}",  "${module.kubernetes_redis.deployment_resource_version}","${module.kubernetes_redis.service_resource_version}"]
   load_balancer_source_ranges = "${var.user_access}"

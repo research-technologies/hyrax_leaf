@@ -5,6 +5,9 @@ bash /bin/docker-entrypoint.sh
 
 if [ ! -d $DERIVATIVES_PATH ]; then
   mkdir -p $DERIVATIVES_PATH $UPLOADS_PATH $CACHE_PATH $WORKING_PATH $BRANDING_PATH
+  
+  # Symlink the branding directory
+  ln -s $SOURCE_BRANDING_PATH $APP_WORKDIR/$BRANDING_PATH
 fi
 
 # Run the initialization tasks on first run
@@ -22,6 +25,7 @@ fi
 
 # Solr / Fedora need to be running for initial setup only
 if [ "$FLAG" == "initialize" ]; then 
+
   # wait for Solr and Fedora to come up
   sleep 15s
   
