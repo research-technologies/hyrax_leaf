@@ -7,6 +7,9 @@ GEM_KEY=$(echo $GEM_KEY)
 GEM_SOURCE=$(echo $GEM_SOURCE)
 APP_WORKDIR=$(echo $APP_WORKDIR)
 
+# Log directory must exist
+mkdir $APP_WORKDIR/log
+
 # Assume you have created/added a private key for $USER and added it to $GEM_SOURCE"
 # TODO: Did not handle private key
 if [ -n "${GEM_KEY+set}" ]; then
