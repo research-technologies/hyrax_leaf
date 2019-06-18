@@ -8,6 +8,7 @@ This is a terraform build to deploy hyrax_leaf leaf to an Azure Kubernetes Servi
 
 * Terraform
 * Docker and Docker compose
+* Ruby
 * Azure CLI
 * Azure subscription
 * gem install 'azure-storage-file'
