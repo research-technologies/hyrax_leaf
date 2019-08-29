@@ -49,3 +49,8 @@ variable "user_access" {
 
 variable "zone_name" { }
 variable "zone_resource_group" { }
+variable "mount_size_fcrepo" { }
+variable "mount_size_hyrax" { }
+variable "mount_size_redis" { }
+variable "mount_size_solr" { }
+variable "mount_size_postgresdb" { }

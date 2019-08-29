@@ -34,7 +34,8 @@ module "kubernetes_pvc_postgresdb" {
   client_certificate = "${module.azure_kubernetes.client_certificate}"
   client_key = "${module.azure_kubernetes.client_key}"
   cluster_ca_certificate = "${module.azure_kubernetes.cluster_ca_certificate}"
-  
+  mount_size = "${var.mount_size_postgresdb}"
+ 
   volume= "postgresdb"
   storage_class_name = "azuredisk"
 
