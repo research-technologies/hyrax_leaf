@@ -62,10 +62,11 @@ The terraform plan creates and Automation Account and a Log Analytics Workspace.
 In the Azure portal:
 
 1. Navigate to Resource Group > Automation Account
-2. In the left-hand menu, find Related Resources > Start/Stop VM
-3. Select 'Learn more about and enable the solution' and hit Create
-4. Choose the existing Automation Account, Log Analytics Workspace and Resource Group
-5. In the configuration panel, enter the MC_ resource group, eg. MC_leaf-uat-rdg_leaf-uat-rdg_northeurope (this is important, otherwise the solution will shut down ALL VMs in your subscription)
-6. Save
+2. Create a 'run as user'
+3. In the left-hand menu, find Related Resources > Start/Stop VM
+4. Select 'Learn more about and enable the solution' and hit Create
+5. Choose the existing Automation Account, Log Analytics Workspace and Resource Group
+6. In the configuration panel, enter the MC_ resource group, eg. MC_leaf-uat-rdg_leaf-uat-rdg_northeurope (this is important, otherwise the solution will shut down ALL VMs in your subscription)
+7. Save
 
 Once the deployment is complete, edit the schedules (Scheduled-StartVM and Scheduled-StopVM) as needed from within the automation account.
