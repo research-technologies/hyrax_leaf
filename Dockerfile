@@ -56,7 +56,7 @@ RUN apt-get update -qq \
     bzip2 unzip xz-utils \
     git \
     vim \
-    openjdk-8-jre-headless
+    openjdk-11-jre-headless
 
 # Install fits
 RUN mkdir -p /fits/ \
