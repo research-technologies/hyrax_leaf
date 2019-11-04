@@ -70,3 +70,5 @@ gem 'hydra-role-management'
 gem 'leaf_addons', git: 'https://github.com/leaf-research-technologies/leaf_addons.git'
 gem 'pg', '~> 0.21.0'
 gem 'sidekiq'
+
+gem 'browse-everything', '< 1.0.0'
