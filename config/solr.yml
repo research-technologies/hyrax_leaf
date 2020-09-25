@@ -1,6 +1,6 @@
 development:
-  url: <%= ENV['SOLR_URL_SCHEME'] || 'http' %>://<%= ENV['SOLR_HOST'] || '127.0.0.1' %>:<%= ENV['SOLR_PORT'] || '8983' %>/solr/hyrax_development
+  url: <%= ENV.fetch('SOLR_URL_SCHEME','http') %>://<%= ENV.fetch('SOLR_HOST','127.0.0.1') %>:<%= ENV.fetch('SOLR_PORT','8983') %>/solr/hyrax_development
 test:
-  url: <%= ENV['SOLR_URL_SCHEME'] || 'http' %>://<%= ENV['SOLR_HOST'] || '127.0.0.1' %>:<%= ENV['SOLR_PORT'] || '8985' %>/solr/hyrax_test
+  url: <%= ENV.fetch('SOLR_URL_SCHEME','http') %>://<%= ENV.fetch('SOLR_HOST','127.0.0.1') %>:<%= ENV.fetch('SOLR_PORT','8985') %>/solr/hyrax_test
 production:
-  url: <%= ENV['SOLR_URL_SCHEME'] || 'http' %>://<%= ENV['SOLR_HOST'] || 'solr' %>:<%= ENV['SOLR_PORT'] || '8983' %>/solr/<%= ENV['SOLR_CORE'] || 'hyrax_production' %>
+  url: <%= ENV.fetch('SOLR_URL_SCHEME','http') %>://<%= ENV.fetch('SOLR_HOST','solr') %>:<%= ENV.fetch('SOLR_PORT','8983') %>/solr/<%= ENV.fetch('SOLR_CORE','hyrax_production') %>
