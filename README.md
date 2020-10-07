@@ -22,7 +22,7 @@ HyraxLeaf can be used stand-alone, but has been designed for use with a Ruby Gem
 The convention for using a gem is:
 
 1) clone the gem to `vendor/`
-2) add the gem to the Gemfile: `gem_name, path: vendor/gem_name`
+2) add the gem to the Gemfile: `gem 'gem_name', path: 'vendor/gem_name'`
 3) run the installer: `rails g gem_name:install`
 4) optionally (if available), run the initialize generator on first run to run setup tasks like creating the default admin set: `rails g gem_name:initialize`
 
