@@ -45,18 +45,51 @@ ARG GEM_KEY
 # Install libraries, dependencies and java
 RUN apt-get update -qq \
     && apt-get install -y --no-install-recommends \
-    libpq-dev \
-    libxml2-dev libxslt1-dev \
-    nodejs \
-    imagemagick \
-    libreoffice \
-    ghostscript \
+    apache2 \
+    bzip2 \ 
+    certbot \
     ffmpeg \
-    ufraw \
-    bzip2 unzip xz-utils \
+    ghostscript \
     git \
+    imagemagick \
+    libpq-dev \
+    libreoffice \
+    libxml2-dev libxslt1-dev \
+    net-tools \
+    nodejs \
+    openjdk-11-jre-headless \
+    python-certbot-apache \
+    tree \
+    ufraw \
+    unzip \
     vim \
-    openjdk-11-jre-headless
+    xz-utils
+
+## install apache, certs and modules for proxy##
+COPY docker/ssl.conf /etc/apache2/conf-available/
+RUN a2enconf ssl
+
+COPY docker/hyrax.conf /etc/apache2/sites-available/
+COPY docker/hyrax_ssl.conf /etc/apache2/sites-available/
+
+#in case we are generating self-signed certs for a docker only instance
+COPY docker/gen_cert.sh /bin/
+RUN chmod +x /bin/gen_cert.sh
+
+# For later use by certbot/cron
+COPY docker/renew_cert /var/tmp/
+RUN chmod +x /var/tmp/renew_cert
+
+#SSL will be started after we are up and certbot has done its thang (so just the 80 vhost for now)
+RUN a2ensite hyrax
+
+RUN a2enmod ssl
+RUN a2enmod headers
+RUN a2enmod rewrite
+RUN a2enmod proxy
+RUN a2enmod proxy_balancer
+RUN a2enmod proxy_http
+RUN a2enmod proxy_wstunnel
 
 # Install fits
 RUN mkdir -p /fits/ \
@@ -80,7 +113,7 @@ RUN mkdir -p $APP_WORKDIR/shared/state
 
 WORKDIR $APP_WORKDIR
 
-RUN if [ "$RAILS_ENV" = "production" ]; then bundle install --without development test; else bundle install; fi
+RUN if [ "$RAILS_ENV" = "production" ]; then bundle install --without development test --quiet ; else bundle install --quiet; fi
 
 # Run the gem installer
 RUN if [ -n "${GEM_KEY+set}" ]; then bundle exec rails g $GEM_KEY:install ; fi
