@@ -35,7 +35,7 @@ Hyrax.config do | config |
   end
   
   config.iiif_info_url_builder = lambda do |file_id, base_url|
-      uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url)
+      uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url, port: ENV.fetch("PORT", ""))
       uri.sub(%r{/info\.json\Z}, '')
   end
 
