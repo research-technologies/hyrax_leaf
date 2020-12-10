@@ -16,11 +16,11 @@ FLAG=""
 # On first deploy set the --initial flag
 # This is global and persists across images
 #   ie. we don't want to re-initialize on a new image
-if [ ! -f $APP_WORKDIR/shared/state/.initialized ]; then
+if [ ! -f /data/shared/state/.hyrax_initialized ]; then
     echo "Setting the initial flag"
     FLAG="initialize"
-    mkdir $APP_WORKDIR/shared/state
-    touch $APP_WORKDIR/shared/state/.initialized
+    mkdir /data/shared/state
+    touch /data/shared/state/.hyrax_initialized
 fi
 
 # Solr / Fedora need to be running for initial setup only
@@ -52,7 +52,7 @@ if [ "$FLAG" == "initialize" ]; then
     bundle exec rails g $GEM_KEY:initialize
     bundle exec rake assets:clean assets:precompile
     # setup the admin user
-    bundle exec rake leaf_addons:create_admin_user[$( echo $ADMIN_USER_EMAIL),$( echo $ADMIN_USER_PASSWORD)]
+    bundle exec rake leaf_addons:create_admin_user[$( echo $ADMIN_USER),$( echo $ADMIN_PASSWORD)]
   # If the GEM_KEY isn't set on the initial run; run the setup tasks (I'm not sure this ever really happens)
   elif [ ! -n "${GEM_KEY+set}" ]; then
     echo "Running the initialization tasks"
@@ -61,7 +61,7 @@ if [ "$FLAG" == "initialize" ]; then
     bundle exec rake hyrax:default_collection_types:create
     bundle exec rake assets:clean assets:precompile
     # setup the admin user
-    bundle exec rake leaf_addons:create_admin_user[$( echo $ADMIN_USER_EMAIL),$( echo $ADMIN_USER_PASSWORD)]
+    bundle exec rake leaf_addons:create_admin_user[$( echo $ADMIN_USER),$( echo $ADMIN_PASSWORD)]
 
   fi
 fi
@@ -86,6 +86,8 @@ if [ $USE_SS_CERT ]; then
   fi
 else
   echo -e "-- ${bold}Obtaining certificates from letsencrypt using certbot ($SERVER_NAME)${normal} --"
+  service apache2 start
+
 #  [ ! -d /data/letsencrypt ] && mkdir /data/letsencrypt
 #  [ ! -d /data/pki/certs ] && mkdir -p /data/pki/certs
 #  [ ! -d /data/pki/priv ] && mkdir -p /data/pki/priv
@@ -106,7 +108,7 @@ else
       # No cert here, We'll register and get one and store all the gubbins on the letsecnrypt volume (n.b. this needs to be an azuredisk for symlink reasons)
       echo -e "Getting new cert and linking cert/key to /etc/ssl"
       mkdir -p /var/www/acme-docroot/.well-known/acme-challenge
-      certbot -n certonly $staging --expand --agree-tos --email $ADMIN_EMAIL --cert-name base -d $SERVER_NAME
+      certbot -n certonly --webroot $staging -w /var/www/acme-docroot/ --expand --agree-tos --email $ADMIN_EMAIL --cert-name base -d $SERVER_NAME
       # In case these are somehow hanging around to wreck the symlinking
       [ -f  /etc/ssl/certs/$SERVER_NAME.crt ] && rm /etc/ssl/certs/$SERVER_NAME.crt
       [ -f  /etc/ssl/private/$SERVER_NAME.key ] && rm /etc/ssl/private/$SERVER_NAME.key
