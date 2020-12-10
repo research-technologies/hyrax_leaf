@@ -6,7 +6,7 @@ development:
 test:
   user: fedoraAdmin
   password: fedoraAdmin
-  url: <%= ENV['FCREPO_URL_SCHEME'] || 'http' %>://<%= ENV['FCREPO_HOST'] || '127.0.0.1' %>:<%= ENV['FCREPO_PORT'] || '8986' %>/rest
+  url: <%= ENV['FCREPO_URL_SCHEME'] || 'http' %>://<%= ENV['FCREPO_HOST'] || '127.0.0.1' %>:<%= ENV['FCREPO_PORT'] || '8986' %>/fcrepo/rest
   base_path: /test
 production:
   user: <%= ENV.fetch('FCREPO_USER', 'fedoraAdmin') %>
