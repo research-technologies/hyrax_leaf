@@ -80,8 +80,10 @@ RUN chmod +x /bin/gen_cert.sh
 COPY docker/renew_cert /var/tmp/
 RUN chmod +x /var/tmp/renew_cert
 
-#SSL will be started after we are up and certbot has done its thang (so just the 80 vhost for now)
+# SSL will be started after we are up and certbot has done its thang (so just the 80 vhost for now)
 RUN a2ensite hyrax
+# Not this one though
+RUN a2dissite 000-default
 
 RUN a2enmod ssl
 RUN a2enmod headers
