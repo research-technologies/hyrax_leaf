@@ -34,6 +34,7 @@
 *.tfplan
 terraform/config.json
 terraform/create_copy_script.rb
+terraform/docker_build.rb
 
 # Keys
 *id_rsa
