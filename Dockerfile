@@ -2,6 +2,8 @@
 #   copy the key and config to enable git clone
 #   @todo Docker 18.9 provides an improved mechanism: https://docs.docker.com/develop/develop-images/build_enhancements/#using-ssh-to-access-private-data-in-builds
 FROM ruby:2.6 as intermediate
+#FROM ruby:2.7 as intermediate
+
 
 RUN apt-get update
 RUN apt-get install -y git
@@ -48,6 +50,7 @@ RUN apt-get update -qq \
     apache2 \
     bzip2 \ 
     certbot \
+    cron \
     ffmpeg \
     ghostscript \
     git \
@@ -63,6 +66,7 @@ RUN apt-get update -qq \
     ufraw \
     unzip \
     vim \
+    yarn \
     xz-utils
 
 ## install apache, certs and modules for proxy##
@@ -114,6 +118,8 @@ COPY --from=intermediate $APP_WORKDIR $APP_WORKDIR
 RUN mkdir -p $APP_WORKDIR/shared/state
 
 WORKDIR $APP_WORKDIR
+
+#RUN gem install bundler:2.2.11
 
 RUN if [ "$RAILS_ENV" = "production" ]; then bundle install --without development test --quiet ; else bundle install --quiet; fi
 
