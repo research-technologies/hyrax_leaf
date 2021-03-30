@@ -1,5 +1,6 @@
 require 'azure/storage/file'
 require 'json'
+require 'tempfile'
 
 @storage_acount_name = ''
 @storage_account_key = ''
