@@ -44,7 +44,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'hyrax', '~> 2.5'
+gem 'hyrax', '~> 2.9', '>= 2.9.3'
+#gem 'hyrax', '~> 2.5'
+
 group :development, :test do
   gem 'easy_translate'
   gem 'fcrepo_wrapper'
@@ -70,5 +72,8 @@ gem 'hydra-role-management'
 gem 'leaf_addons', git: 'https://github.com/leaf-research-technologies/leaf_addons.git'
 gem 'pg', '~> 0.21.0'
 gem 'sidekiq'
+
+# Blacklight Range Limit
+gem 'blacklight_range_limit', '~> 7.0.0'
 
 gem 'browse-everything', '< 1.0.0'
