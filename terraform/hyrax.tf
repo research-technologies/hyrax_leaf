@@ -25,27 +25,21 @@ resource "local_file" "build" {
   
   provisioner "local-exec" "build" {
     command = "docker tag hyrax_leaf_web ${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_web"
-    }
-  
-#  provisioner "local-exec" "build" {
-#    command = "docker tag hyrax_leaf_workers ${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_workers"
-#    }
+  }
   
   provisioner "local-exec" "build" {
     command = "az acr login --name ${module.azure_kubernetes.azure_container_registry_name}"
-    }
+  }
   
   provisioner "local-exec" "build" {
     command = "docker push ${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_web"
-    }
+  }
   
-#  provisioner "local-exec" "build" {
-#    command = "docker push ${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_workers"
-#  }
 }
 
 module "kubernetes_hyrax" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_no_limitrange.git?ref=master"
+#  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_two_ports_two_mounts.git?ref=master"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -57,11 +51,20 @@ module "kubernetes_hyrax" {
   docker_image = "${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_web:latest"
   app_name = "hyrax"
   primary_mount_path = "/data"
-  secondary_mount_path = "/app/shared"
-  secondary_sub_path = "shared"
   pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
+
+  secondary_volume_name = "letsencrypt"
+  secondary_mount_path = "/etc/letsencrypt"
+#  secondary_sub_path = "shared"
+  secondary_pvc_claim_name = "${module.kubernetes_pvc_letsencrypt.pvc_claim_name}"
+
+#  secondary_mount_path = "/app/shared"
+#  secondary_sub_path = "shared"
+
   # replicas = 1
-  port = 80
+  primary_port = 80
+  secondary_port = 443
+
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
   command = ["/bin/bash","-ce", "/bin/docker-entrypoint-web.sh"]
@@ -125,7 +128,7 @@ module "terraform_azure_public_ip_hyrax" {
 # Sidekiq
 
 module "kubernetes_sidekiq" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_two_mounts.git?ref=master"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -137,10 +140,14 @@ module "kubernetes_sidekiq" {
   docker_image = "${module.azure_kubernetes.azure_container_registry_name}.azurecr.io/hyrax/hyrax_leaf_web:latest"
   app_name = "sidekiq"
   primary_mount_path = "/data"
+  pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
+
+  secondary_volume_name = "sidekiq"
   secondary_mount_path = "/app/shared"
   secondary_sub_path = "shared"
-  pvc_claim_name = "${module.kubernetes_pvc_hyrax.pvc_claim_name}"
-  port = 3001
+
+  port = "3001"
+
   # replicas = 0
   image_pull_secrets = "${module.kubernetes_secret_docker.kubernetes_secret_name}"
   env_from = "${module.kubernetes_secret_env.kubernetes_secret_name}"
@@ -159,7 +166,23 @@ module "kubernetes_pvc_hyrax" {
   client_certificate = "${module.azure_kubernetes.client_certificate}"
   client_key = "${module.azure_kubernetes.client_key}"
   cluster_ca_certificate = "${module.azure_kubernetes.cluster_ca_certificate}"
-  mount_size = "${var.mount_size_hyrax}"
+  
   volume = "hyraxsidekiq"
+  mount_size = "${var.mount_size_hyrax}"
 
+}
+
+# Add an azuredisk just for letsencrypt certicifactes as they need persistence *and* symlinks
+module "kubernetes_pvc_letsencrypt" {
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=master"
+
+  host = "${module.azure_kubernetes.host}"
+  username = "${module.azure_kubernetes.username}"
+  password = "${module.azure_kubernetes.password}"
+  client_certificate = "${module.azure_kubernetes.client_certificate}"
+  client_key = "${module.azure_kubernetes.client_key}"
+  cluster_ca_certificate = "${module.azure_kubernetes.cluster_ca_certificate}"
+
+  volume= "letsencrypt"
+  storage_class_name = "azuredisk"
 }
