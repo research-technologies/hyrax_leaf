@@ -22,20 +22,19 @@ test:
   adapter: postgresql
   encoding: unicode
   pool: 50
-  host: <%= ENV['POSTGRES_HOST'] || 'db' %>
-  port: <%= ENV['POSTGRES_PORT'] || '5432' %>
-  username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
-  password: <%= ENV['POSTGRES_PASSWORD'] || 'password' %>
-  database: <%= ENV['HYRAX_DB'] || 'hyrax_test' %>
-#  database: db/test.sqlite3
+  host: <%= ENV.fetch("POSTGRES_HOST", 'db') %>
+  port: <%= ENV.fetch("POSTGRES_PORT", '5432') %>
+  username: <%= ENV.fetch("POSTGRES_USER", 'postgres') %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", 'password') %>
+  database: <%= ENV.fetch("HYRAX_DB", 'hyrax_test') %>
 
 production:
   <<: *default
   adapter: postgresql
   encoding: unicode
   pool: 50
-  host: <%= ENV['POSTGRES_HOST'] || 'db' %>
-  port: <%= ENV['POSTGRES_PORT'] || '5432' %>
-  username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
-  password: <%= ENV['POSTGRES_PASSWORD'] || 'password' %>
-  database: <%= ENV['HYRAX_DB'] || 'hyrax_production' %>
+  host: <%= ENV.fetch("POSTGRES_HOST", 'db') %>
+  port: <%= ENV.fetch("POSTGRES_PORT", '5432') %>
+  username: <%= ENV.fetch("POSTGRES_USER", 'postgres') %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", 'password') %>
+  database: <%= ENV.fetch("HYRAX_DB", 'hyrax_production') %>
