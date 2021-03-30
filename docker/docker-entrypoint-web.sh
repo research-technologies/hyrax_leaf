@@ -137,6 +137,7 @@ else
   # copy renew_script into cron.monthly (whould be frequent enough)
   mkdir -p /etc/cron.monthly
   mv /var/tmp/renew_cert /etc/cron.monthly/renew_cert
+  service cron start
   printf "%-50s $print_ok\n" "renew_cert script moved to /etc/cron.monthly";
 fi
 
