@@ -14,8 +14,8 @@ else
     bundle check || bundle install --without production
 fi
 
-echo "Create the db and run any pending migrations"
-bundle exec rake leaf_addons:db:setup_and_migrate
+#echo "Create the db and run any pending migrations"
+#bundle exec rake leaf_addons:db:setup_and_migrate
 
 echo "Checking for new assets ... "
 
