@@ -4,7 +4,6 @@
 #FROM ruby:2.6 as intermediate
 FROM ruby:2.7-buster as intermediate
 
-
 RUN apt-get update
 RUN apt-get install -y git
 
