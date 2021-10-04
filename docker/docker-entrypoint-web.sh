@@ -10,6 +10,16 @@ if [ ! -d $DERIVATIVES_PATH ]; then
   ln -s $SOURCE_BRANDING_PATH $APP_WORKDIR/$BRANDING_PATH
 fi
 
+if [ ! -d $LOGS_PATH ]; then
+  # Persist some logs (assuming that LOGS_PATH is somewhere on a PV)
+  mkdir -p $LOGS_PATH/apache2
+  mkdir -p $LOGS_PATH/hyrax
+  mkdir -p /etc/cron.daily
+  # trim_weblogs will trim away logs older than 21 days
+  mv /var/tmp/trim_weblogs /etc/cron.daily/trim_weblogs
+fi
+
+
 # Run the initialization tasks on first run
 
 FLAG=""
@@ -56,6 +66,8 @@ if [ "$FLAG" == "initialize" ]; then
   # If the GEM_KEY isn't set on the initial run; run the setup tasks (I'm not sure this ever really happens)
   elif [ ! -n "${GEM_KEY+set}" ]; then
     echo "Running the initialization tasks"
+    echo "Create the db and run any pending migrations"
+    bundle exec rake leaf_addons:db:setup_and_migrate
     bundle exec rake hyrax:default_admin_set:create
     bundle exec rake hyrax:workflow:load
     bundle exec rake hyrax:default_collection_types:create
@@ -96,6 +108,8 @@ else
   ## Perhaps when letsencrypt start issuing certs for IPs we should modify the above so that --staging is used with certbot when HOSTNAME_IS_IP?
   [[ $ENVIRONMENT == "dev" ]] && staging="--staging"
 
+  mkdir -p /var/www/acme-docroot
+
   # Correct cert on data volume in /data/pki/certs? We should be able to just bring apache up with ssl
   # If not...
   if [ ! -f /etc/ssl/certs/$SERVER_NAME.crt ]; then
@@ -107,7 +121,6 @@ else
     else
       # No cert here, We'll register and get one and store all the gubbins on the letsecnrypt volume (n.b. this needs to be an azuredisk for symlink reasons)
       echo -e "Getting new cert and linking cert/key to /etc/ssl"
-      mkdir -p /var/www/acme-docroot/.well-known/acme-challenge
       certbot -n certonly --webroot $staging -w /var/www/acme-docroot/ --expand --agree-tos --email $ADMIN_EMAIL --cert-name base -d $SERVER_NAME
       # In case these are somehow hanging around to wreck the symlinking
       [ -f  /etc/ssl/certs/$SERVER_NAME.crt ] && rm /etc/ssl/certs/$SERVER_NAME.crt
@@ -134,11 +147,11 @@ else
   # Add some evaluated variables 
   sed -i "s/#SERVER_NAME#/$SERVER_NAME/" /var/tmp/renew_cert
   sed -i "s/#ADMIN_EMAIL#/$ADMIN_EMAIL/" /var/tmp/renew_cert
-  # copy renew_script into cron.monthly (whould be frequent enough)
-  mkdir -p /etc/cron.monthly
-  mv /var/tmp/renew_cert /etc/cron.monthly/renew_cert
+  # copy renew_script into cron.weekly (whould be frequent enough)
+  mkdir -p /etc/cron.weekly
+  mv /var/tmp/renew_cert /etc/cron.weekly/renew_cert
   service cron start
-  printf "%-50s $print_ok\n" "renew_cert script moved to /etc/cron.monthly";
+  printf "%-50s $print_ok\n" "renew_cert script moved to /etc/cron.weekly";
 fi
 
 
