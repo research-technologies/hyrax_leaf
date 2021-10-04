@@ -1,8 +1,8 @@
 # Use an multi-stage build to setup ssh
 #   copy the key and config to enable git clone
 #   @todo Docker 18.9 provides an improved mechanism: https://docs.docker.com/develop/develop-images/build_enhancements/#using-ssh-to-access-private-data-in-builds
-FROM ruby:2.6 as intermediate
-#FROM ruby:2.7 as intermediate
+#FROM ruby:2.6 as intermediate
+FROM ruby:2.7-buster as intermediate
 
 
 RUN apt-get update
@@ -31,7 +31,7 @@ COPY docker/repo_builder.sh /bin/
 RUN chmod +x /bin/repo_builder.sh
 RUN /bin/repo_builder.sh
 
-FROM ruby:2.6
+FROM ruby:2.7-buster
 
 # Setup build variables
 ARG APP_WORKDIR
@@ -43,6 +43,7 @@ ARG CACHE_PATH
 ARG WORKING_PATH
 ARG FITS_VERSION
 ARG GEM_KEY
+ARG LOGS_PATH
 
 # Install libraries, dependencies and java
 RUN apt-get update -qq \
@@ -51,6 +52,7 @@ RUN apt-get update -qq \
     bzip2 \ 
     certbot \
     cron \
+    cronolog \
     ffmpeg \
     ghostscript \
     git \
@@ -84,6 +86,14 @@ RUN chmod +x /bin/gen_cert.sh
 COPY docker/renew_cert /var/tmp/
 RUN chmod +x /var/tmp/renew_cert
 
+COPY docker/trim_weblogs /var/tmp/
+RUN chmod +x /var/tmp/trim_weblogs
+
+# Copy in our own ImageMagick policy.xml that doesn't disable ghostscript format types
+# TODO this but with a sed command
+COPY docker/ImageMagickPolicy.xml /etc/ImageMagick-6/policy.xml
+RUN chmod 0644 /etc/ImageMagick-6/policy.xml
+
 # SSL will be started after we are up and certbot has done its thang (so just the 80 vhost for now)
 RUN a2ensite hyrax
 # Not this one though
@@ -110,6 +120,7 @@ RUN mkdir -p $UPLOADS_PATH
 RUN mkdir -p $CACHE_PATH
 RUN mkdir -p $WORKING_PATH
 RUN mkdir -p $BRANDING_PATH
+RUN mkdir -p $LOGS_PATH
 
 # Copy from intermdiate
 COPY --from=intermediate $APP_WORKDIR $APP_WORKDIR
@@ -119,12 +130,12 @@ RUN mkdir -p $APP_WORKDIR/shared/state
 
 WORKDIR $APP_WORKDIR
 
-#RUN gem install bundler:2.2.11
+RUN gem install bundler:2.2.11
 
 RUN if [ "$RAILS_ENV" = "production" ]; then bundle install --without development test --quiet ; else bundle install --quiet; fi
 
 # Run the gem installer
-RUN if [ -n "${GEM_KEY+set}" ]; then bundle exec rails g $GEM_KEY:install ; fi
+#RUN if [ -n "${GEM_KEY+set}" ]; then bundle exec rails g $GEM_KEY:install ; fi
 
 # Add the entrypoint files
 COPY docker/docker-entrypoint.sh /bin/
