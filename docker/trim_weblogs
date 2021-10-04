@@ -1,0 +1,4 @@
+#!/bin/bash
+retention_preiod=${1:-21}
+find /data/log/apache2/ -type f -name "errorlog.*" -mtime +$retention_period -exec rm {} \;
+find /data/log/apache2/ -type f -name "accesslog.*" -mtime +$retention_period -exec rm {} \;
