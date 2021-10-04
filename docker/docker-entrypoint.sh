@@ -14,9 +14,6 @@ else
     bundle check || bundle install --without production
 fi
 
-echo "Create the db and run any pending migrations"
-bundle exec rake leaf_addons:db:setup_and_migrate
-
 echo "Checking for new assets ... "
 
 if [[ -d $APP_WORKDIR/public/assets && -f $APP_WORKDIR/shared/assets_hash ]]; then
