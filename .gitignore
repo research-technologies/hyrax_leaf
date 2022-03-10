@@ -35,6 +35,12 @@
 terraform/config.json
 terraform/create_copy_script.rb
 terraform/docker_build.rb
+terraform.uat/config.json
+terraform.uat/create_copy_script.rb
+terraform.uat/docker_build.rb
+terraform.prod/config.json
+terraform.prod/create_copy_script.rb
+terraform.prod/docker_build.rb
 
 # Keys
 *id_rsa

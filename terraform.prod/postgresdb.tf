@@ -1,6 +1,6 @@
 # postgresql
 module "kubernetes_postgres" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_no_limitrange.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_no_limitrange.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -28,7 +28,7 @@ module "kubernetes_postgres" {
 }
 
 module "kubernetes_pvc_postgresdb" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"

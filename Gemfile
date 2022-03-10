@@ -44,7 +44,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'hyrax', '~> 2.9', '>= 2.9.3'
+gem 'hyrax', '~> 3.1'
+# rdf 3.2.5 conflicts with a monkey patch in acive-fedora 13.2.5 and below
+gem 'rdf', '~> 3.2', '<= 3.2.4'
+gem 'okcomputer', '~> 1.6', '>= 1.6.4'
+
+#gem 'hyrax', '~> 2.9', '>= 2.9.3'
+
 #gem 'hyrax', '~> 2.5'
 
 group :development, :test do
@@ -67,9 +73,10 @@ gem 'rsolr', '>= 1.0'
 
 gem 'riiif', '~> 2.0'
 
-gem 'dog_biscuits'
+#gem 'dog_biscuits'
+gem 'dog_biscuits', git: 'https://github.com/research-technologies/dog_biscuits.git'
 gem 'hydra-role-management'
-gem 'leaf_addons', git: 'https://github.com/leaf-research-technologies/leaf_addons.git'
+gem 'leaf_addons', git: 'https://github.com/research-technologies/leaf_addons.git'
 gem 'pg', '~> 0.21.0'
 gem 'sidekiq'
 

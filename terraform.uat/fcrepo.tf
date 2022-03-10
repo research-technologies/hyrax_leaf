@@ -1,6 +1,6 @@
 # fcrepo
 module "kubernetes_fcrepo" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_no_limitrange.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_no_limitrange.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -10,6 +10,9 @@ module "kubernetes_fcrepo" {
   cluster_ca_certificate = "${module.azure_kubernetes.cluster_ca_certificate}"
   docker_image = "ualbertalib/docker-fcrepo4" # or nulib/fcrepo4"
   app_name = "fcrepo"
+
+  replicas = 1
+
   mount_path = "/data"
 #  primary_mount_path = "/data"
 #  secondary_mount_path = "/fcrepo" # currently unused, but could be
@@ -27,7 +30,7 @@ module "kubernetes_fcrepo" {
 
 # Public IP
 module "terraform_azure_public_ip_fcrepo" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=main"
   
   # Required - add to terraform.tvars
   subscription_id = "${var.subscription_id}"
@@ -51,7 +54,7 @@ module "terraform_azure_public_ip_fcrepo" {
 }
 
 module "kubernetes_pvc_fcrepo" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
