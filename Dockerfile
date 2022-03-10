@@ -59,6 +59,7 @@ RUN apt-get update -qq \
     libpq-dev \
     libreoffice \
     libxml2-dev libxslt1-dev \
+    logrotate \
     net-tools \
     nodejs \
     openjdk-11-jre-headless \

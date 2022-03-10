@@ -164,9 +164,10 @@ service apache2 restart
 #########
 
 echo "--------- Starting Hyrax in $RAILS_ENV mode ---------"
+#bundle exec rails server -p $RAILS_PORT -b '0.0.0.0' --pid $PIDS_PATH/$APPLICATION_KEY.pid
+
 RAILS_START=`bundle exec rails server -p $RAILS_PORT -b '0.0.0.0' --pid $PIDS_PATH/$APPLICATION_KEY.pid`
 if [ "$?" -ne "0" ]; then
   echo "### There was an issue starting rails/puma. We have kept this container alive for you to go and see what's up ###"
   tail -f /dev/null
-fi
-                                                                                                                                                                                                                                   145,1         Bot
+fi                                                                                                                                                                                                                                   145,1         Bot
