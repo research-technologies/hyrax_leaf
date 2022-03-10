@@ -38,8 +38,8 @@ resource "local_file" "build" {
 }
 
 module "kubernetes_hyrax" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_no_limitrange.git?ref=master"
-#  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_two_ports_two_mounts.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_no_limitrange.git?ref=main"
+#  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_two_ports_two_mounts.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -61,7 +61,7 @@ module "kubernetes_hyrax" {
 #  secondary_mount_path = "/app/shared"
 #  secondary_sub_path = "shared"
 
-  # replicas = 1
+  replicas = 1
   primary_port = 80
   secondary_port = 443
 
@@ -77,7 +77,7 @@ module "kubernetes_hyrax" {
 # A Record
 
 module "terraform_azure_dns_arecord_hyrax" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_azure_dns_arecord.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_azure_dns_arecord.git?ref=main"
   
   # Required - add to terraform.tvars
   subscription_id = "${var.subscription_id}"
@@ -102,7 +102,7 @@ module "terraform_azure_dns_arecord_hyrax" {
 
 # Public IP
 module "terraform_azure_public_ip_hyrax" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=main"
   
   # Required - add to terraform.tvars
   subscription_id = "${var.subscription_id}"
@@ -128,7 +128,7 @@ module "terraform_azure_public_ip_hyrax" {
 # Sidekiq
 
 module "kubernetes_sidekiq" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_two_mounts.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_two_mounts.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -157,8 +157,9 @@ module "kubernetes_sidekiq" {
   service_type = "ClusterIP"
 }
 
+
 module "kubernetes_pvc_hyrax" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -174,7 +175,7 @@ module "kubernetes_pvc_hyrax" {
 
 # Add an azuredisk just for letsencrypt certicifactes as they need persistence *and* symlinks
 module "kubernetes_pvc_letsencrypt" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"

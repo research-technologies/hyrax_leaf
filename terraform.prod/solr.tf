@@ -20,7 +20,7 @@ resource "local_file" "create_copy_script" {
 
 # solr
 module "kubernetes_solr" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_two_mounts.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_deployment_simple_two_mounts.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
@@ -29,7 +29,7 @@ module "kubernetes_solr" {
   client_key = "${module.azure_kubernetes.client_key}"
   cluster_ca_certificate = "${module.azure_kubernetes.cluster_ca_certificate}"
 
-  docker_image = "solr:7-alpine"
+  docker_image = "solr:7-slim"
 
   app_name = "solr"
   primary_mount_path = "/opt/solr/server/solr/mycores"
@@ -54,7 +54,7 @@ module "kubernetes_solr" {
 
 # Public IP
 module "terraform_azure_public_ip_solr" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_azure_public_ip.git?ref=main"
   
   # Required - add to terraform.tvars
   subscription_id = "${var.subscription_id}"
@@ -79,7 +79,7 @@ module "terraform_azure_public_ip_solr" {
 
 
 module "kubernetes_pvc_solr" {
-  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=master"
+  source = "git::https://github.com/anarchist-raccoons/terraform_kubernetes_pvc.git?ref=main"
 
   host = "${module.azure_kubernetes.host}"
   username = "${module.azure_kubernetes.username}"
