@@ -31,10 +31,6 @@ Hyrax.config do | config |
   
   config.contact_email = ENV['CONTACT_EMAIL'] if ENV['CONTACT_EMAIL']
 
-  config.iiif_image_url_builder = lambda do |file_id, base_url, size|
-      Riiif::Engine.routes.url_helpers.image_url(file_id, host: base_url, size: size)
-  end
-  
   config.iiif_info_url_builder = lambda do |file_id, base_url|
       uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url, port: ENV.fetch("PORT", ""))
       uri.sub(%r{/info\.json\Z}, '')
