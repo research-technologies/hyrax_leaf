@@ -24,7 +24,8 @@ Hyrax.config do | config |
   # config.audit_user_key = 'batchuser@example.com'
   
   # Other config
-  config.banner_image = ENV['BANNER'] if ENV['BANNER']
+  config.banner_image = ENV['BANNER'] || "banner.png" 
+
   config.geonames_username = ENV.fetch('GEONAMES_USERNAME', 'hykuleaf')
   config.iiif_image_server = true
   
