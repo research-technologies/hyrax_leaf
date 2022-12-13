@@ -563,7 +563,7 @@ GEM
     logging (2.3.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.14)
-    loofah (2.17.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -597,7 +597,7 @@ GEM
     noid-rails (3.0.3)
       actionpack (>= 5.0.0, < 7)
       noid (~> 0.9)
-    nokogiri (1.13.6-x86_64-linux)
+    nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.8)
     oauth2 (1.4.9)
@@ -629,7 +629,7 @@ GEM
       nokogiri (~> 1.6)
       rails (>= 5.0, < 6.2)
       rdf
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.3)
     rack-protection (2.2.0)
       rack
